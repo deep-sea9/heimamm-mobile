@@ -37,6 +37,7 @@ export default {}
 
 <style lang="less" scoped>
 .tabbar {
+  background-color: #f7f4f5;
   .iconfont {
     font-size: 25px;
   }
