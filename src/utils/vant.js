@@ -11,7 +11,8 @@ import {
   DropdownMenu,
   DropdownItem,
   Tabs,
-  Tab
+  Tab,
+  Circle
 } from 'vant'
 
 Vue.use(Button)
@@ -23,3 +24,4 @@ Vue.use(DropdownMenu)
 Vue.use(DropdownItem)
 Vue.use(Tabs)
 Vue.use(Tab)
+Vue.use(Circle)
