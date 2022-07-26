@@ -7,10 +7,18 @@ import {
   Tabbar,
   TabbarItem,
   Icon,
-  NavBar,
   Cell,
   CellGroup,
-  Divider
+  Divider,
+  DropdownMenu,
+  DropdownItem,
+  Tabs,
+  Tab,
+  Circle,
+  Form,
+  Field,
+  NavBar,
+  Toast
 } from 'vant'
 
 Vue.use(Button)
@@ -18,6 +26,15 @@ Vue.use(Tabbar)
 Vue.use(TabbarItem)
 Vue.use(Icon)
 Vue.use(NavBar)
+Vue.use(Divider)
 Vue.use(Cell)
 Vue.use(CellGroup)
-Vue.use(Divider)
+Vue.use(NavBar)
+Vue.use(DropdownMenu)
+Vue.use(DropdownItem)
+Vue.use(Tabs)
+Vue.use(Tab)
+Vue.use(Circle)
+Vue.use(Form)
+Vue.use(Field)
+Vue.use(Toast)

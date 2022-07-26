@@ -7,6 +7,7 @@ const routes = [
   {
     path: '/',
     component: () => import('@/views/layout'),
+
     children: [
       {
         path: '',
@@ -30,9 +31,36 @@ const routes = [
       {
         path: 'mine',
         name: '',
+        meta: {
+          needLogin: true
+        },
         component: () => import('@/views/mine')
+      },
+      // 修改用户信息路由
+      {
+        path: '/info',
+        name: 'info',
+        meta: {
+          needLogin: true,
+          noTab: true
+        },
+        component: () => import('@/views/mine/info.vue')
+      },
+      {
+        path: '/mine/post',
+        name: 'post',
+        meta: {
+          needLogin: true,
+          noTab: true
+        },
+        component: () => import('@/views/mine/components/post.vue')
       }
     ]
+  },
+  {
+    path: '/login',
+    component: () => import('@/views/login/index'),
+    hidden: true
   }
 ]
 
