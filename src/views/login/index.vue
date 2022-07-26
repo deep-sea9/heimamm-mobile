@@ -87,7 +87,7 @@ export default {
   methods: {
     // 点击箭头跳转
     onClickLeft () {
-      this.$router.push('/layout/find')
+      this.$router.push('/find')
     },
     // 获取验证码
     async validation () {
@@ -130,7 +130,7 @@ export default {
             this.$toast.success(res.data.message)
 
             // 跳转
-            this.$router.push(this.$route.query.back || '/layout/mine')
+            this.$router.push(this.$route.query.back || '/mine')
           } catch (error) {
             console.log(error)
             // this.$toast.fail(error.response.data.message)
