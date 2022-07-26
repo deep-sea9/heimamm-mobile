@@ -11,7 +11,9 @@ import {
   CellGroup,
   NavBar,
   Image as VanImage,
-  Field
+  Field,
+  Popup,
+  Picker
 } from 'vant'
 
 Vue.use(Button)
@@ -24,3 +26,5 @@ Vue.use(CellGroup)
 Vue.use(NavBar)
 Vue.use(VanImage)
 Vue.use(Field)
+Vue.use(Popup)
+Vue.use(Picker)

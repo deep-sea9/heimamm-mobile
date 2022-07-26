@@ -1,10 +1,11 @@
 <template>
   <div class="post">
-    <van-nav-bar
-      title="修改岗位"
-      left-arrow
-      @click-left="$router.push('/mine')"
-    >
+    <van-nav-bar title="修改岗位" @click-left="$router.push('/mine')">
+      <template #left>
+        <span class="iconfont" style="font-size:40px;margin-left:-20px  "
+          >&#xe637;</span
+        >
+      </template>
     </van-nav-bar>
     <div class="input">
       <van-field v-model="post" placeholder="请输入岗位"></van-field>
