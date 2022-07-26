@@ -11,3 +11,11 @@ export const code = (data) => {
     data
   })
 }
+// 登录
+export const login = (data) => {
+  return request({
+    url: '/au/login',
+    method: 'post',
+    data
+  })
+}

@@ -2,7 +2,16 @@
  * vant 组件注册
  */
 import Vue from 'vue'
-import { Button, Tabbar, TabbarItem, Icon, Form, Field, NavBar } from 'vant'
+import {
+  Button,
+  Tabbar,
+  TabbarItem,
+  Icon,
+  Form,
+  Field,
+  NavBar,
+  Toast
+} from 'vant'
 
 Vue.use(Button)
 
@@ -12,3 +21,4 @@ Vue.use(Icon)
 Vue.use(Form)
 Vue.use(Field)
 Vue.use(NavBar)
+Vue.use(Toast)
