@@ -127,7 +127,7 @@ export default {
             const res = await login(this.userInfo)
             // console.log(res)
             this.$store.commit('setToken', res.data.data.jwt)
-            this.$toast.success(res.data.message)
+            this.$toast.success('客官欢迎你')
 
             // 跳转
             this.$router.push(this.$route.query.back || '/mine')

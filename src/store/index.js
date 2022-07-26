@@ -1,10 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+
+import persistedstate from 'vuex-persistedstate'
+
 import { auInfo } from '@/api/mine'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  plugins: [persistedstate({ paths: ['token'] })],
+
   state: {
     token: '',
     userInfo: ''

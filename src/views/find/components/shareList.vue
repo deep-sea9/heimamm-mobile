@@ -1,20 +1,22 @@
 <template>
-  <div class="InterviewExperience">
-    <!-- 面经分享 -->
-    <van-cell-group>
-      <van-cell
-        title="面经分享"
-        value="查看更多"
-        is-link
-        to="/shareList"
-        style="padding:20px 15px"
-      />
-    </van-cell-group>
-    <div
-      class="shareItem"
-      v-for="(item, index) in list.slice(0, 3)"
-      :key="index"
+  <div class="shareList">
+    <van-nav-bar title="我分享的面经" @click-left="$router.push('/find')">
+      <template #left>
+        <i class="iconfont" style="font-size:40px;">&#xe637;</i>
+      </template>
+    </van-nav-bar>
+    <div class="search">
+      <i class="iconfont">&#xe647;</i>
+      请输入关键字
+    </div>
+    <van-loading
+      size="24px"
+      style="text-align: center;"
+      v-if="list.length === 0"
     >
+      加载中...</van-loading
+    >
+    <div class="shareItem" v-for="(item, index) in list" :key="index">
       <div class="title">{{ item.title }}</div>
       <div class="content">
         {{ item.content }}
@@ -59,10 +61,25 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.InterviewExperience {
-  ::v-deep .van-cell__title {
-    font-size: 17px;
+.shareList {
+  background-color: #fff !important;
+  ::v-deep .van-nav-bar__left {
+    padding: 0;
+  }
+  ::v-deep .van-nav-bar__title {
+    font-size: 19px;
     font-weight: 700;
+  }
+  .search {
+    margin: 0 15px;
+    height: 34px;
+    color: #d4d3d3;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    background-color: #f7f4f5;
   }
   .shareItem {
     margin: 0 15px;
