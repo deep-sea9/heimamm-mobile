@@ -79,6 +79,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .MarketData {
+  background-color: #fff;
   ::v-deep .van-cell__title {
     font-size: 17px;
     font-weight: 700;
