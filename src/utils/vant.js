@@ -15,7 +15,8 @@ import {
   Tab,
   Circle,
   Cell,
-  CellGroup
+  CellGroup,
+  Field
 } from 'vant'
 
 Vue.use(Button)
@@ -32,3 +33,6 @@ Vue.use(DropdownItem)
 Vue.use(Tabs)
 Vue.use(Tab)
 Vue.use(Circle)
+
+Vue.use(Field)
+;('feature/mine')
