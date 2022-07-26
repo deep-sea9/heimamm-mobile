@@ -2,7 +2,7 @@
   <div class="login">
     <van-nav-bar @click-left="onClickLeft">
       <template #left>
-        <i class="iconfont iconbtn_nav_back"></i>
+        <i class="iconfont ">&#xe637;</i>
       </template>
     </van-nav-bar>
     <h4>您好，请登录</h4>
@@ -14,7 +14,7 @@
           :rules="rules.mobile"
         >
           <template #left-icon>
-            <i class="iconfont iconbianzu1"></i>
+            <i class="iconfont ">&#xe60b; </i>
           </template>
         </van-field>
         <van-field
@@ -23,7 +23,7 @@
           :rules="rules.code"
         >
           <template #left-icon>
-            <i class="iconfont iconyanzhengma"></i>
+            <i class="iconfont ">&#xe60c; </i>
           </template>
         </van-field>
 
