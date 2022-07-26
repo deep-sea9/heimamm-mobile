@@ -2,7 +2,6 @@
  * vant 组件注册
  */
 import Vue from 'vue'
-<<<<<<< HEAD
 
 import {
   Button,
@@ -21,14 +20,10 @@ import {
   Form
 } from 'vant'
 
-
-
-
 Vue.use(Button)
 Vue.use(Tabbar)
 Vue.use(TabbarItem)
 Vue.use(Icon)
-
 
 Vue.use(Cell)
 Vue.use(CellGroup)
