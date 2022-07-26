@@ -78,7 +78,7 @@ const router = new VueRouter({
 router.beforeEach(async (to, from, next) => {
   // 判断登录的路由是否需要登录
   if (to.meta.needLogin) {
-    if (store.state.userInfo.token) {
+    if (store.state.token) {
       await store.dispatch('getUserInfo')
       next()
     } else {

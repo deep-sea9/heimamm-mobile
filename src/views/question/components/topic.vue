@@ -6,14 +6,26 @@
       left-arrow
       @click-left="$router.back()"
     />
+    <div>{{ $route.query }}</div>
   </div>
 </template>
 
 <script>
+import { interviewQuestions } from '@/api/interview'
 export default {
   name: '',
   data () {
     return {}
+  },
+  created () {
+    this.getQuestionList()
+  },
+  methods: {
+    // 获取模拟面试题
+    async getQuestionList () {
+      const res = await interviewQuestions(this.$route.query)
+      console.log(res)
+    }
   }
 }
 </script>
