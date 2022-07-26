@@ -6,7 +6,12 @@
           <h3>我嫩嫩</h3>
           <p>我你嘚嘚嘚得得</p>
         </div>
-        <img class="photo" src="@/img/8.jpg" alt="" />
+        <img
+          class="photo"
+          src="@/img/8.jpg"
+          alt=""
+          @click="$router.push('/info')"
+        />
       </div>
       <div class="Statistics">
         <div class="answer">
@@ -28,7 +33,12 @@
       </div>
     </div>
     <div class="modular">
-      <van-cell title="我的岗位" value="世界最" is-link>
+      <van-cell
+        title="我的岗位"
+        value="世界最"
+        is-link
+        @click="$router.push('/mine/post/position')"
+      >
         <template #icon>
           <span class="iconfont">&#xe64d;</span>
         </template>
@@ -80,10 +90,20 @@
 </template>
 
 <script>
+import { auInfo } from '@/api/mine.js'
 export default {
   name: '',
   data () {
     return {}
+  },
+  created () {
+    this.getData()
+  },
+  methods: {
+    async getData () {
+      const res = await auInfo()
+      console.log(res)
+    }
   }
 }
 </script>

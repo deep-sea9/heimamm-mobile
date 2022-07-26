@@ -7,6 +7,7 @@ const routes = [
   {
     path: '/',
     component: () => import('@/views/layout'),
+
     children: [
       {
         path: '',
@@ -30,13 +31,41 @@ const routes = [
       {
         path: '/mine',
         name: '',
+        meta: {
+          needLogin: true
+        },
         component: () => import('@/views/mine')
+      },
+      // 修改用户信息路由
+      {
+        path: '/info',
+        name: 'info',
+        meta: {
+          needLogin: true,
+          noTab: true
+        },
+        component: () => import('@/views/mine/info.vue')
+      },
+      {
+        path: '/mine/post/:editInfo',
+        name: 'post',
+        meta: {
+          needLogin: true,
+          noTab: true
+        },
+        component: () => import('@/views/mine/components/post.vue')
       }
     ]
   },
   {
+<<<<<<< HEAD
     path: '/question/topic',
     component: () => import('@/views/question/components/topic')
+=======
+    path: '/login',
+    component: () => import('@/views/login/index'),
+    hidden: true
+>>>>>>> 44e0db4ec81cf3941d7503d99fb9217ce46823d6
   }
 ]
 
