@@ -5,7 +5,8 @@ import store from './store'
 import 'normalize.css'
 import '@/utils/vant'
 import '@/style/index.less'
-
+import filter from '@/filters'
+Vue.use(filter)
 Vue.config.productionTip = false
 
 new Vue({
