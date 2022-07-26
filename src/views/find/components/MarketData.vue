@@ -13,8 +13,9 @@
       <span>{{ list.city }}</span>
       <span>{{ list.position }}</span>
     </div>
-    <div class="items">
-      <!-- 2020 -->
+    <div :class="brandFold ? 'items' : 'kele'">
+      <!-- 循环遍历 -->
+      <!-- :class="brandFold ? 'items' : 'kele'" -->
       <div class="item" v-for="(item, index) in list.yearSalary" :key="index">
         <div class="left">{{ item.year }}</div>
         <div class="center">
@@ -35,7 +36,7 @@
     </div>
     <div class="more" @click="more">
       {{ brandFold ? '查看更多' : '收起' }}
-      <i class="iconfont">&#xe652;</i>
+      <i class="iconfont">{{ brandFold ? '&#xe652;' : '&#xe609;' }}</i>
     </div>
   </div>
 </template>
@@ -95,6 +96,31 @@ export default {
     }
   }
   .items {
+    height: 156px;
+    overflow: hidden;
+    font-size: 12px;
+    padding: 0 15px;
+    .item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 21px;
+      .center {
+        width: 240px;
+        flex: 1;
+        margin: 0 10px;
+        border-radius: 4px;
+        background-color: #ebdfdf;
+        .inner {
+          background-color: #fe6d67;
+          border-radius: 4px;
+          text-align: right;
+          color: #fff;
+          padding-right: 4.5px;
+        }
+      }
+    }
+  }
+  .kele {
     font-size: 12px;
     padding: 0 15px;
     .item {

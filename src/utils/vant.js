@@ -19,7 +19,9 @@ import {
   Field,
   NavBar,
   Toast,
-  Loading
+  Loading,
+  Search,
+  List
 } from 'vant'
 
 Vue.use(Button)
@@ -40,3 +42,5 @@ Vue.use(Form)
 Vue.use(Field)
 Vue.use(Toast)
 Vue.use(Loading)
+Vue.use(Search)
+Vue.use(List)

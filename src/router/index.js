@@ -24,9 +24,17 @@ const routes = [
         component: () => import('@/views/question')
       },
       {
-        path: 'find',
+        path: '/find',
         name: '',
         component: () => import('@/views/find')
+      },
+      // 面经分享热搜
+      {
+        path: '/shareList',
+        component: () => import('@/views/find/components/shareList'),
+        meta: {
+          noTab: true
+        }
       },
       {
         path: 'mine',
