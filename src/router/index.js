@@ -7,6 +7,7 @@ const routes = [
   {
     path: '/',
     component: () => import('@/views/layout'),
+
     children: [
       {
         path: '',
@@ -55,6 +56,11 @@ const routes = [
         component: () => import('@/views/mine/components/post.vue')
       }
     ]
+  },
+  {
+    path: '/login',
+    component: () => import('@/views/login/index'),
+    hidden: true
   }
 ]
 
