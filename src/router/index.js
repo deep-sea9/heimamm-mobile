@@ -46,7 +46,7 @@ const routes = [
         component: () => import('@/views/mine/info.vue')
       },
       {
-        path: '/mine/post',
+        path: '/mine/post/:editInfo',
         name: 'post',
         meta: {
           needLogin: true,

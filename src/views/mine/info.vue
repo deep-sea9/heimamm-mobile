@@ -8,14 +8,19 @@
       </template>
     </van-nav-bar>
     <div class="content">
-      <van-cell title="头像" is-link>
+      <van-cell title="头像" is-link @click="$router.push('/mine/post/avatar')">
         <template #extra>
           <!-- <van-image src="@/img/8.jpg" width="20" height="20"></van-image> -->
           <img class="photo" :src="require('@/img/8.jpg')" alt="" />
         </template>
       </van-cell>
       <van-cell-group>
-        <van-cell title="昵称" value="我嫩嫩" is-link></van-cell>
+        <van-cell
+          title="昵称"
+          value="我嫩嫩"
+          is-link
+          @click="$router.push('/mine/post/nickname')"
+        ></van-cell>
         <!-- 修改性别 -->
         <van-cell
           title="性别"
@@ -53,7 +58,12 @@
           ></van-picker>
         </van-popup>
 
-        <van-cell title="个人简称" value="我你嘚嘚嘚得得" is-link></van-cell>
+        <van-cell
+          title="个人简称"
+          value="我你嘚嘚嘚得得"
+          is-link
+          @click="$router.push('/mine/post/intro')"
+        ></van-cell>
       </van-cell-group>
       <van-button plain type="danger" block>退出登录</van-button>
     </div>

@@ -13,7 +13,8 @@ import {
   Image as VanImage,
   Field,
   Popup,
-  Picker
+  Picker,
+  Uploader
 } from 'vant'
 
 Vue.use(Button)
@@ -28,3 +29,4 @@ Vue.use(VanImage)
 Vue.use(Field)
 Vue.use(Popup)
 Vue.use(Picker)
+Vue.use(Uploader)
