@@ -15,20 +15,28 @@ import {
   Tab,
   Circle,
   Cell,
-  CellGroup
+  CellGroup,
+  Popup,
+  Sidebar,
+  SidebarItem,
+  IndexBar,
+  IndexAnchor
 } from 'vant'
 
 Vue.use(Button)
 Vue.use(Tabbar)
 Vue.use(TabbarItem)
 Vue.use(Icon)
-
 Vue.use(Cell)
 Vue.use(CellGroup)
-
 Vue.use(NavBar)
 Vue.use(DropdownMenu)
 Vue.use(DropdownItem)
 Vue.use(Tabs)
 Vue.use(Tab)
 Vue.use(Circle)
+Vue.use(Popup)
+Vue.use(Sidebar)
+Vue.use(SidebarItem)
+Vue.use(IndexBar)
+Vue.use(IndexAnchor)

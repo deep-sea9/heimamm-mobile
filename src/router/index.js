@@ -13,26 +13,30 @@ const routes = [
         redirect: '/company'
       },
       {
-        path: 'company',
+        path: '/company',
         name: '',
         component: () => import('@/views/company')
       },
       {
-        path: 'question',
+        path: '/question',
         name: '',
         component: () => import('@/views/question')
       },
       {
-        path: 'find',
+        path: '/find',
         name: '',
         component: () => import('@/views/find')
       },
       {
-        path: 'mine',
+        path: '/mine',
         name: '',
         component: () => import('@/views/mine')
       }
     ]
+  },
+  {
+    path: '/question/topic',
+    component: () => import('@/views/question/components/topic')
   }
 ]
 
