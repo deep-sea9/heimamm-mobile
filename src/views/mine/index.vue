@@ -37,7 +37,7 @@
         title="我的岗位"
         value="世界最"
         is-link
-        @click="$router.push('/mine/post')"
+        @click="$router.push('/mine/post/position')"
       >
         <template #icon>
           <span class="iconfont">&#xe64d;</span>
@@ -90,10 +90,20 @@
 </template>
 
 <script>
+import { auInfo } from '@/api/mine.js'
 export default {
   name: '',
   data () {
     return {}
+  },
+  created () {
+    this.getData()
+  },
+  methods: {
+    async getData () {
+      const res = await auInfo()
+      console.log(res)
+    }
   }
 }
 </script>

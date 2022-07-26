@@ -19,7 +19,11 @@ import {
   Field,
   NavBar,
   Toast,
-  Loading
+  Loading,
+  Image as VanImage,
+  Popup,
+  Picker,
+  Uploader
 } from 'vant'
 
 Vue.use(Button)
@@ -30,7 +34,6 @@ Vue.use(NavBar)
 Vue.use(Divider)
 Vue.use(Cell)
 Vue.use(CellGroup)
-Vue.use(NavBar)
 Vue.use(DropdownMenu)
 Vue.use(DropdownItem)
 Vue.use(Tabs)
@@ -40,3 +43,6 @@ Vue.use(Form)
 Vue.use(Field)
 Vue.use(Toast)
 Vue.use(Loading)
+Vue.use(Popup)
+Vue.use(Picker)
+Vue.use(Uploader)
