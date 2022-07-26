@@ -35,4 +35,3 @@ Vue.use(Tab)
 Vue.use(Circle)
 
 Vue.use(Field)
-;('feature/mine')
