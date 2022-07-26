@@ -14,20 +14,20 @@ const _axios = axios.create({
 
 // 配置请求拦截器
 _axios.interceptors.request.use(
-  config => {
+  (config) => {
     return config
   },
-  error => {
+  (error) => {
     return Promise.reject(error)
   }
 )
 
 // 配置响应拦截器
 _axios.interceptors.response.use(
-  res => {
+  (res) => {
     return res
   },
-  error => {
+  (error) => {
     return Promise.reject(error)
   }
 )
