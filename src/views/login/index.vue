@@ -121,7 +121,7 @@ export default {
       this.$refs.form
         .validate()
         .then(async () => {
-          console.log('验证通过')
+          console.log('来了哦小老弟')
           this.loading = true
           try {
             const res = await login(this.userInfo)
