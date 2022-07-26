@@ -58,6 +58,7 @@ export default {
     font-weight: 700;
   }
   .technic {
+    background-color: #fff;
     padding: 0 16px 42px 16px;
     display: flex;
     .left {
