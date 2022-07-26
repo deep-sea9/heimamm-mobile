@@ -14,22 +14,22 @@ const routes = [
         redirect: '/company'
       },
       {
-        path: 'company',
+        path: '/company',
         name: '',
         component: () => import('@/views/company')
       },
       {
-        path: 'question',
+        path: '/question',
         name: '',
         component: () => import('@/views/question')
       },
       {
-        path: 'find',
+        path: '/find',
         name: '',
         component: () => import('@/views/find')
       },
       {
-        path: 'mine',
+        path: '/mine',
         name: '',
         meta: {
           needLogin: true
@@ -47,7 +47,7 @@ const routes = [
         component: () => import('@/views/mine/info.vue')
       },
       {
-        path: '/mine/post',
+        path: '/mine/post/:editInfo',
         name: 'post',
         meta: {
           needLogin: true,
@@ -56,6 +56,10 @@ const routes = [
         component: () => import('@/views/mine/components/post.vue')
       }
     ]
+  },
+  {
+    path: '/question/topic',
+    component: () => import('@/views/question/components/topic')
   },
   {
     path: '/login',
