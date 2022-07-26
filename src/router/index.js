@@ -58,14 +58,13 @@ const routes = [
     ]
   },
   {
-<<<<<<< HEAD
     path: '/question/topic',
     component: () => import('@/views/question/components/topic')
-=======
+  },
+  {
     path: '/login',
     component: () => import('@/views/login/index'),
     hidden: true
->>>>>>> 44e0db4ec81cf3941d7503d99fb9217ce46823d6
   }
 ]
 
