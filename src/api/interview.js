@@ -21,3 +21,21 @@ export const interviewQuestions = params => {
     params
   })
 }
+
+// 提交试题
+export const questionsSubmit = data => {
+  return request({
+    url: '/questions/submit',
+    method: 'post',
+    needToken: true,
+    data
+  })
+}
+
+// 面试题详情
+export const questionsById = id => {
+  return request({
+    url: `/questions/${id}`,
+    needToken: true
+  })
+}

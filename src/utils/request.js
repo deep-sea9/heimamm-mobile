@@ -3,6 +3,7 @@
  */
 import axios from 'axios'
 import { Toast } from 'vant'
+import store from '@/store'
 
 // 创建axios副本
 const _axios = axios.create({
@@ -14,6 +15,10 @@ const _axios = axios.create({
 // 配置请求拦截器
 _axios.interceptors.request.use(
   config => {
+    if (config.needToken) {
+      config.headers.Authorization = `Bearer ${store.state.token}`
+    }
+
     return config
   },
   error => {
