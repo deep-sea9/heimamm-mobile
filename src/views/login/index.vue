@@ -121,18 +121,18 @@ export default {
       this.$refs.form
         .validate()
         .then(async () => {
-          console.log('来了哦小老弟')
+          // console.log('来了哦小老弟')
           this.loading = true
           try {
             const res = await login(this.userInfo)
-            console.log(res)
+            // console.log(res)
             this.$store.commit('setToken', res.data.data.jwt)
             this.$toast.success('客官欢迎你')
 
             // 跳转
             this.$router.push(this.$route.query.back || '/mine')
           } catch (error) {
-            console.log(error)
+            // console.log(error)
             // this.$toast.fail(error.response.data.message)
           } finally {
             this.loading = false

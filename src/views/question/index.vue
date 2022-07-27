@@ -30,6 +30,7 @@
           v-for="item in tabList"
           :key="item.id"
           :title="item.name"
+          @click="btnClick(item)"
         ></van-tab>
       </van-tabs>
     </div>
@@ -78,7 +79,7 @@
       block
       class="btn"
       color="#00b8d4"
-      @click="$router.push('/question/topic')"
+      @click="btnClick"
       >模拟面试</van-button
     >
   </div>
@@ -128,8 +129,18 @@ export default {
           break
         }
       }
-      console.log(this.list.cityPositions[code])
+
       this.tabList = this.list.cityPositions[code]
+    },
+    btnClick () {
+      const item = this.tabList.find((item, index) => index === this.active)
+      this.$router.push({
+        path: '/question/topic',
+        query: {
+          type: item.id,
+          city: this.city
+        }
+      })
     }
   },
   created () {

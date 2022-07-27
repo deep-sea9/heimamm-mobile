@@ -27,32 +27,24 @@ import {
   Popup,
   Picker,
   Uploader,
-  Form
+  Form,
+  Search,
+  List
 } from 'vant'
 
 Vue.use(Button)
 Vue.use(Tabbar)
 Vue.use(TabbarItem)
 Vue.use(Icon)
-
-Vue.use(Cell)
 Vue.use(NavBar)
 Vue.use(Divider)
-Vue.use(CellGroup)
-
 Vue.use(Cell)
 Vue.use(CellGroup)
-Vue.use(NavBar)
-
-Vue.use(NavBar)
-Vue.use(Divider)
-
 Vue.use(DropdownMenu)
 Vue.use(DropdownItem)
 Vue.use(Tabs)
 Vue.use(Tab)
 Vue.use(Circle)
-
 Vue.use(Sidebar)
 Vue.use(SidebarItem)
 Vue.use(IndexBar)
@@ -65,3 +57,5 @@ Vue.use(Popup)
 Vue.use(Picker)
 Vue.use(Uploader)
 Vue.use(Image)
+Vue.use(Search)
+Vue.use(List)
