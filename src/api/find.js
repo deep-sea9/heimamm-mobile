@@ -5,6 +5,12 @@ export const articlesTechnic = () => {
     url: '/articles/technic'
   })
 }
+// 获取面试技巧详情
+export const articlesTechnicId = id => {
+  return request({
+    url: '/articles/technic/' + id
+  })
+}
 // 获取市场数据列表
 export const chartDataHot = () => {
   return request({
@@ -12,8 +18,21 @@ export const chartDataHot = () => {
   })
 }
 // 获取面经分享列表
-export const articlesShare = () => {
+export const articlesShare = params => {
   return request({
-    url: '/articles/share'
+    url: '/articles/share',
+    params
+  })
+}
+// 获取面经热搜
+export const articlesShareTopSearch = () => {
+  return request({
+    url: '/articles/shareTopSearch'
+  })
+}
+// 获取面经详情
+export const articlesShareId = id => {
+  return request({
+    url: '/articles/share/' + id
   })
 }

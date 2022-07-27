@@ -5,7 +5,7 @@
         <i class="iconfont" style="font-size:40px;">&#xe637;</i>
       </template>
     </van-nav-bar>
-    <div class="search">
+    <div class="search" @click="shareSearch">
       <i class="iconfont">&#xe647;</i>
       请输入关键字
     </div>
@@ -45,7 +45,9 @@ export default {
   name: '',
   data () {
     return {
-      list: []
+      list: [],
+      loading: false,
+      finished: false
     }
   },
   created () {
@@ -55,13 +57,16 @@ export default {
     async getData () {
       const res = await articlesShare()
       this.list = res.data.data.list
-      console.log(this.list)
+    },
+    shareSearch () {
+      this.$router.push('/shareSearch')
     }
   }
 }
 </script>
 <style lang="less" scoped>
 .shareList {
+  height: 100vh;
   background-color: #fff !important;
   ::v-deep .van-nav-bar__left {
     padding: 0;

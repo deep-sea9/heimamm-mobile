@@ -30,14 +30,6 @@ const routes = [
         name: '',
         component: () => import('@/views/find')
       },
-      // 面经分享热搜
-      {
-        path: '/shareList',
-        component: () => import('@/views/find/components/shareList'),
-        meta: {
-          noTab: true
-        }
-      },
       {
         path: '/mine',
         name: '',
@@ -75,6 +67,29 @@ const routes = [
     path: '/login',
     component: () => import('@/views/login/index'),
     hidden: true
+  },
+  // 面经分享列表
+  {
+    path: '/shareList',
+    component: () => import('@/views/find/components/shareList'),
+    meta: {
+      noTab: true
+    }
+  },
+  // 面经分享热搜
+  {
+    path: '/shareSearch',
+    component: () => import('@/views/find/components/shareSearch')
+  },
+  // 面技文章详情
+  {
+    path: '/InterviewInfo/:id',
+    component: () => import('@/views/find/components/InterviewInfo')
+  },
+  // 面经文章详情
+  {
+    path: '/InterviewExpInfo/:id',
+    component: () => import('@/views/find/components/InterviewExpInfo')
   }
 ]
 

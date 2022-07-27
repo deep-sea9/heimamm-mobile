@@ -36,7 +36,7 @@
     </div>
     <div class="more" @click="more">
       {{ brandFold ? '查看更多' : '收起' }}
-      <i class="iconfont">{{ brandFold ? '&#xe652;' : '&#xe609;' }}</i>
+      <van-icon size="15px" :name="brandFold ? 'arrow-down' : 'arrow-up'" />
     </div>
   </div>
 </template>

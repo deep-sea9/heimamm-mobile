@@ -14,6 +14,7 @@
       class="shareItem"
       v-for="(item, index) in list.slice(0, 3)"
       :key="index"
+      @click="$router.push('/InterviewExpInfo/' + item.id)"
     >
       <div class="title">{{ item.title }}</div>
       <div class="content">

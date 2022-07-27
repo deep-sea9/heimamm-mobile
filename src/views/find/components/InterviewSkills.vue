@@ -9,7 +9,12 @@
         style="padding:20px 15px"
       />
     </van-cell-group>
-    <div class="technic" v-for="(item, index) in list.slice(0, 3)" :key="index">
+    <div
+      class="technic"
+      v-for="(item, index) in list.slice(0, 3)"
+      :key="index"
+      @click="$router.push('/InterviewInfo/' + item.id)"
+    >
       <div class="left">
         <div class="title">{{ item.title }}</div>
         <div class="other">
@@ -46,8 +51,9 @@ export default {
       const res = await articlesTechnic()
       // console.log(res)
       this.list = res.data.data.list
-      // console.log(this.list)
+      console.log(this.list)
     }
+    // 获取文章详情
   }
 }
 </script>
@@ -81,6 +87,9 @@ export default {
         }
         .watch {
           margin-right: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
       }
     }
