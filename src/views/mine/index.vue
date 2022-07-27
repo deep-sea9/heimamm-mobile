@@ -3,31 +3,38 @@
     <div class="top">
       <div class="top_NT">
         <div class="fontS">
-          <h3>我嫩嫩</h3>
-          <p>我你嘚嘚嘚得得</p>
+          <h3>{{ info.nickname }}</h3>
+          <p>{{ info.intro }}</p>
         </div>
         <img
           class="photo"
-          src="@/img/8.jpg"
+          :src="http + info.avatar"
           alt=""
           @click="$router.push('/info')"
         />
       </div>
       <div class="Statistics">
         <div class="answer">
-          <h3>2303</h3>
+          <h3>{{ info.submitNum }}</h3>
           <p>累计答题</p>
         </div>
-        <div class="subject">
-          <h3>7</h3>
+        <div v-if="info.collectArticles" class="subject">
+          <h3>{{ info.collectArticles.length }}</h3>
           <p>收藏题目</p>
         </div>
         <div class="wrong">
-          <h3>92</h3>
+          <h3>{{ info.errorNum }}</h3>
           <p>我的错题</p>
         </div>
         <div class="correct">
-          <h3>19%</h3>
+          <h3>
+            {{
+              (
+                ((info.submitNum - info.errorNum) / info.submitNum) *
+                100
+              ).toFixed(2)
+            }}%
+          </h3>
           <p>正确率</p>
         </div>
       </div>
@@ -94,7 +101,10 @@ import { auInfo } from '@/api/mine.js'
 export default {
   name: '',
   data () {
-    return {}
+    return {
+      info: '',
+      http: 'http://106.55.138.21:1337'
+    }
   },
   created () {
     this.getData()
@@ -102,7 +112,8 @@ export default {
   methods: {
     async getData () {
       const res = await auInfo()
-      console.log(res)
+      this.info = res.data.data
+      console.log('获取用户数据：', this.info)
     }
   }
 }
