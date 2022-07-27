@@ -30,7 +30,10 @@ import {
   Form,
   Search,
   List,
-  Dialog
+  Dialog,
+  Lazyload,
+  Swipe,
+  SwipeItem
 } from 'vant'
 
 Vue.use(Button)
@@ -61,3 +64,7 @@ Vue.use(Image)
 Vue.use(Search)
 Vue.use(List)
 Vue.use(Dialog)
+
+Vue.use(Lazyload)
+Vue.use(Swipe)
+Vue.use(SwipeItem)
