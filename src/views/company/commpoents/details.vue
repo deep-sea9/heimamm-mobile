@@ -47,10 +47,7 @@
           </div>
           <div class="weal">
             <div v-for="item in list.weals" :key="item.id">
-              <span
-                ><i class="iconfont iconicon_gongsi_buchongyiliao"></i
-                >{{ item.text }}</span
-              >
+              {{ item.text }}
             </div>
           </div>
         </div>
@@ -207,14 +204,14 @@ export default {
     },
     async getData () {
       // 获取公司详情
-      console.log(this.$route.params.id)
+      // console.log(this.$route.params.id)
       const res = await companies(this.$route.params.id)
       this.list = res.data.data
       const res2 = await companiesComments({
         id: +this.$route.params.id,
         start: 0
       })
-      console.log(res2)
+      // console.log(res2)
       this.list2 = res2.data.data.list
     },
     // 写评论弹窗
@@ -295,6 +292,8 @@ export default {
       display: flex;
       justify-content: space-around;
       margin-top: 20px;
+      width: 100%;
+      overflow-x: auto;
       div {
         flex: 1;
         display: flex;
@@ -302,16 +301,7 @@ export default {
         border: 1px solid #939aaa;
         padding: 5px;
         border-radius: 8px;
-        span {
-          display: flex;
-          align-items: center;
-          color: #eaeaed;
-          i {
-            color: #fff;
-            font-size: 18px;
-            margin-right: 5px;
-          }
-        }
+        color: #fff;
       }
     }
   }

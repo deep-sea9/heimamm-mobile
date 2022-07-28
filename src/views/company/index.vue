@@ -12,23 +12,15 @@
     </div>
     <div class="titlePic">
       <img
-        src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimgsa.baidu.com%2Fbaike%2Fpic%2Fitem%2Ff2deb48f8c5494eecbee6a8524f5e0fe98257e59.jpg&refer=http%3A%2F%2Fimgsa.baidu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1661397301&t=9dd1368de2578f76f14635125da8b717"
+        src="https://img.lianzhixiu.com/uploads/220629/1-220629143542Z6.JPG"
         alt=""
       />
     </div>
-    <div class="title">
-      <div class="left">
-        <span>推荐</span>
-        <div class="distance">
-          <span>距离</span>
-          <i class="iconfont iconicon_paixu_shengxu"></i>
-        </div>
-        <div class="score">
-          <span>评分</span>
-          <i class="iconfont iconicon_paixu_shengxu"></i>
-        </div>
-      </div>
-      <span class="right" @click="filters">筛选</span>
+    <div class="category">
+      <span>推荐</span>
+      <span class="distance">距离 <i class="iconfont">&#xe65a;</i></span>
+      <span class="grade">评分 <i class="iconfont">&#xe65a;</i></span>
+      <span>筛选</span>
     </div>
     <van-list
       v-model="loading"
@@ -48,7 +40,6 @@
         <div class="rightInfo">
           <div class="infoTop">
             <span>{{ item.name }}</span>
-            <span>{{ item.score }}分</span>
           </div>
           <p class="address">
             <span>{{ item.region }}</span>
@@ -64,6 +55,7 @@
             ><span>/</span>最后更新时间:{{ item.updated_at | formatTime }}
           </p>
         </div>
+        <div class="score">{{ item.score }}分</div>
       </div>
     </van-list>
     <Filters ref="show"></Filters>
@@ -117,6 +109,8 @@ export default {
 
 <style lang="less" scoped>
 .company {
+  background-color: #fff;
+  height: 100vh;
   padding: 10px;
   .header {
     box-sizing: border-box;
@@ -154,34 +148,23 @@ export default {
       height: 100%;
     }
   }
-  .title {
-    margin-top: 20px;
+  .category {
+    margin: 25px 0 0;
     display: flex;
     align-items: center;
-
+    font-size: 14px;
     .distance {
       margin: 0 40px;
       display: inline-block;
     }
-    .score {
+    .grade {
       flex: 1;
-      display: inline-block;
-    }
-    .right {
-      flex: 1;
-      text-align: right;
-    }
-    span {
-      font-size: 14px;
-    }
-    i {
-      font-size: 15px;
     }
   }
   .info {
-    margin-top: 15px;
     display: flex;
-    padding-bottom: 50px;
+    padding: 30px 0;
+    border-bottom: 1px solid #f7f4f5;
     .pic {
       width: 70px;
       height: 70px;
@@ -191,6 +174,7 @@ export default {
       }
     }
     .rightInfo {
+      flex: 1;
       margin-left: 10px;
       .infoTop {
         display: flex;
@@ -209,7 +193,7 @@ export default {
       }
 
       .address {
-        font-size: 18px;
+        font-size: 14px;
         margin: 10px 0;
       }
       .pInfo {
@@ -227,14 +211,20 @@ export default {
       }
       .infoBtn {
         span {
-          padding: 3px;
+          padding: 5px;
           color: #bab9c2;
+          font-size: 14px;
           background-color: #f7f4f5;
+          border-radius: 5px;
         }
         .B {
-          margin: 0 5px;
+          margin: 0 8px;
         }
       }
+    }
+    .score {
+      font-size: 14px;
+      color: #595b75;
     }
   }
 }
