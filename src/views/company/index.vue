@@ -12,7 +12,7 @@
     </div>
     <div class="titlePic">
       <img
-        src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimgsa.baidu.com%2Fbaike%2Fpic%2Fitem%2Ff2deb48f8c5494eecbee6a8524f5e0fe98257e59.jpg&refer=http%3A%2F%2Fimgsa.baidu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1661397301&t=9dd1368de2578f76f14635125da8b717"
+        src="https://attach.setn.com/newsimages/2021/04/12/3106398-PH.jpg"
         alt=""
       />
     </div>
@@ -22,21 +22,6 @@
         <div class="distance">
           <span>距离</span>
           <i class="iconfont iconicon_paixu_shengxu"></i>
-
-        <span class="iconfont">距离&#xe65a;</span>
-        <span class="iconfont">评分&#xe65a;</span>
-      </div>
-      <div class="screen">筛选</div>
-    </div>
-
-    <div class="info" v-for="(item, index) in list" :key="index">
-      <div class="pic">
-        <img :src="'http://192.168.11.131:1337' + item.logo" alt="" />
-      </div>
-      <div class="rightInfo">
-        <div class="infoTop">
-          <span>{{ item.name }}</span>
-          <span>{{ item.score }}分</span>
         </div>
         <div class="score">
           <span>评分</span>
@@ -113,7 +98,7 @@ export default {
         start: this.start,
         limit: 5
       })
-      // console.log('公司列表', res)
+      console.log('公司列表', res)
       // this.list = res.data.data.list
       this.loading = false
       this.list.push(...res.data.data.list)
@@ -132,7 +117,7 @@ export default {
 
 <style lang="less" scoped>
 .company {
-  padding: 10px;
+  padding: 20px;
   .header {
     box-sizing: border-box;
     padding: 0 20px;
@@ -173,7 +158,6 @@ export default {
     margin-top: 20px;
     display: flex;
     align-items: center;
-
     .distance {
       margin: 0 40px;
       display: inline-block;
@@ -187,7 +171,7 @@ export default {
       text-align: right;
     }
     span {
-      font-size: 14px;
+      font-size: 15px;
     }
     i {
       font-size: 15px;
