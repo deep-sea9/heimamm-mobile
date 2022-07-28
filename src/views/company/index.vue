@@ -16,20 +16,19 @@
         alt=""
       />
     </div>
-    <div class="title">
-      <div class="left">
-        <span>推荐</span>
-        <div class="distance">
-          <span>距离</span>
-          <i class="iconfont iconicon_paixu_shengxu"></i>
-
+    <div class="left">
+      <span>推荐</span>
+      <div class="distance">
+        <span>距离</span>
+        <i class="iconfont iconicon_paixu_shengxu"></i>
         <span class="iconfont">距离&#xe65a;</span>
         <span class="iconfont">评分&#xe65a;</span>
       </div>
       <div class="screen">筛选</div>
     </div>
+    <div class="title"></div>
 
-    <div class="info" v-for="(item, index) in list" :key="index">
+    <!-- <div class="info" v-for="(item, index) in list" :key="index">
       <div class="pic">
         <img :src="'http://192.168.11.131:1337' + item.logo" alt="" />
       </div>
@@ -44,7 +43,7 @@
         </div>
       </div>
       <span class="right" @click="filters">筛选</span>
-    </div>
+    </div> -->
     <van-list
       v-model="loading"
       :finished="finished"
