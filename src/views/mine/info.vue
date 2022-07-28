@@ -181,7 +181,7 @@ export default {
         duration: 0
       })
       // console.log(this.areaList.city_list)
-      // console.log(value)
+      console.log(value)
       await auEdit({ area: value[1].code })
       // 手动清除 Toast
       Toast.clear()

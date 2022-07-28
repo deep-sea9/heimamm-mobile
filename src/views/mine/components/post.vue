@@ -30,6 +30,22 @@
         @input="submitInput"
       ></van-field>
     </div>
+    <!-- 裁剪图片 -->
+    <div class="crop" v-if="cropShow">
+      <VueCropper
+        :img="imgBase64"
+        ref="cropper"
+        autoCrop
+        autoCropWidth="200px"
+        autoCropHeight="200px"
+        fixed
+      ></VueCropper>
+      <div class="crop-btn">
+        <van-button class="crop-item" @click="cropShow = false"
+          >取消</van-button
+        >
+      </div>
+    </div>
   </div>
 </template>
 
@@ -37,7 +53,12 @@
 import { mapState } from 'vuex'
 import { Upload, auEdit } from '@/api/mine'
 import { Toast } from 'vant'
+// 导入简介
+import { VueCropper } from 'vue-cropper'
 export default {
+  components: {
+    VueCropper
+  },
   data () {
     return {
       // 获取动态路由最后面地址
@@ -65,7 +86,10 @@ export default {
         position: '',
         area: ''
       },
-      obj: ''
+      obj: '',
+      cropShow: false,
+      // 裁剪的图片
+      imgBase64: ''
     }
   },
   computed: {
@@ -104,6 +128,7 @@ export default {
     },
     // 上传后的处理
     async afterRead (file) {
+      this.imgBase64 = file.content
       const param = new FormData()
       // 把file追加进为FormData类型的数据
       param.append('files', file.file)
@@ -111,6 +136,8 @@ export default {
       const res = await Upload(param)
       // console.log('res', res)
       this.btnShow = true
+      // 上传图片就显示
+      this.cropShow = true
       this.obj = res.data.data[0]
       // console.log('存储修改图片的数据', this.obj)
     },
@@ -122,6 +149,7 @@ export default {
         forbidClick: true,
         duration: 0
       })
+      this.cropShow = false
       await auEdit({
         [this.mode]: this.mode === 'avatar' ? this.obj.id : this.post
       })
@@ -161,6 +189,25 @@ export default {
     line-height: 35px;
     background-color: #f7f4f5;
     border-radius: 10px;
+  }
+  .crop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    .crop-btn {
+      display: flex;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      justify-content: space-between;
+      .crop-item {
+        flex: 1;
+      }
+    }
   }
 }
 </style>
