@@ -1,8 +1,15 @@
 import request from '@/utils/request'
 // 获取面试技巧列表
-export const articlesTechnic = () => {
+export const articlesTechnic = params => {
   return request({
-    url: '/articles/technic'
+    url: '/articles/technic',
+    params
+  })
+}
+// 获取面试技巧详情
+export const articlesTechnicId = id => {
+  return request({
+    url: '/articles/technic/' + id
   })
 }
 // 获取市场数据列表
@@ -12,8 +19,37 @@ export const chartDataHot = () => {
   })
 }
 // 获取面经分享列表
-export const articlesShare = () => {
+export const articlesShare = params => {
   return request({
-    url: '/articles/share'
+    url: '/articles/share',
+    params
+  })
+}
+// 获取面经热搜
+export const articlesShareTopSearch = () => {
+  return request({
+    url: '/articles/shareTopSearch'
+  })
+}
+// 获取面经详情
+export const articlesShareId = id => {
+  return request({
+    url: '/articles/share/' + id
+  })
+}
+// 获取面经评论
+export const articlesCommentsId = params => {
+  return request({
+    url: '/articles/comments/' + params.id,
+    params
+  })
+}
+// 发布评论
+export const articlesComments = data => {
+  return request({
+    url: '/articles/comments',
+    method: 'post',
+    data,
+    needToken: true
   })
 }

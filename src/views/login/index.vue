@@ -26,7 +26,6 @@
             <i class="iconfont ">&#xe60c; </i>
           </template>
         </van-field>
-
         <div class="count" v-if="show == 0" @click="getcode">获取验证码</div>
         <div class="count" v-if="show == 1">{{ count }}s 后重试</div>
         <div class="count" v-if="show == 2" @click="getcode">重新获取</div>
@@ -38,7 +37,6 @@
         </p>
       </div>
     </van-form>
-
     <!-- loading弹窗 -->
     <div class="loading" v-if="loading">
       <van-loading size="40px" vertical text-color="#fff"
@@ -50,7 +48,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import { code, login } from '@/api/login.js'
 export default {
@@ -185,7 +182,7 @@ export default {
     box-sizing: border-box;
     position: absolute;
     left: 130px;
-    bottom: 20px;
+    bottom: 200px;
     z-index: 1;
     width: 120px;
     height: 120px;

@@ -30,14 +30,6 @@ const routes = [
         name: '',
         component: () => import('@/views/find')
       },
-      // 面经分享热搜
-      {
-        path: '/shareList',
-        component: () => import('@/views/find/components/shareList'),
-        meta: {
-          noTab: true
-        }
-      },
       {
         path: '/mine',
         name: '',
@@ -67,6 +59,7 @@ const routes = [
     component: () => import('@/views/login/index'),
     hidden: true
   },
+  // mine子页面
   {
     path: '/mine/post/:editInfo',
     name: 'post',
@@ -74,6 +67,39 @@ const routes = [
       needLogin: true
     },
     component: () => import('@/views/mine/components/post.vue')
+  },
+  // 面经分享列表
+  {
+    path: '/shareList',
+    component: () => import('@/views/find/components/shareList'),
+    meta: {
+      noTab: true
+    }
+  },
+  // 面经分享热搜
+  {
+    path: '/shareSearch',
+    component: () => import('@/views/find/components/shareSearch')
+  },
+  // 面技文章详情
+  {
+    path: '/InterviewInfo/:id',
+    component: () => import('@/views/find/components/InterviewInfo')
+  },
+  // 面经文章详情
+  {
+    path: '/InterviewExpInfo/:id',
+    component: () => import('@/views/find/components/InterviewExpInfo')
+  },
+  {
+    path: '/details/:id',
+    name: '',
+    component: () => import('@/views/company/commpoents/details.vue')
+  },
+  // 面试技巧详情列表
+  {
+    path: '/InterviewList',
+    component: () => import('@/views/find/components/InterviewList')
   }
 ]
 

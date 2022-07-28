@@ -6,10 +6,16 @@
         title="面试技巧"
         value="查看更多"
         is-link
+        to="/InterviewList"
         style="padding:20px 15px"
       />
     </van-cell-group>
-    <div class="technic" v-for="(item, index) in list.slice(0, 3)" :key="index">
+    <div
+      class="technic"
+      v-for="(item, index) in list.slice(0, 3)"
+      :key="index"
+      @click="$router.push('/InterviewInfo/' + item.id)"
+    >
       <div class="left">
         <div class="title">{{ item.title }}</div>
         <div class="other">
@@ -23,7 +29,7 @@
         </div>
       </div>
       <div class="right">
-        <img :src="'http://106.55.138.21:1337' + item.cover" alt="" />
+        <img :src="'http://192.168.11.131:1337' + item.cover" alt="" />
       </div>
     </div>
   </div>
@@ -46,7 +52,7 @@ export default {
       const res = await articlesTechnic()
       // console.log(res)
       this.list = res.data.data.list
-      // console.log(this.list)
+      console.log(this.list)
     }
   }
 }
@@ -81,6 +87,9 @@ export default {
         }
         .watch {
           margin-right: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
       }
     }
