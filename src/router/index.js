@@ -90,6 +90,11 @@ const routes = [
   {
     path: '/InterviewExpInfo/:id',
     component: () => import('@/views/find/components/InterviewExpInfo')
+  },
+  // 面试技巧详情列表
+  {
+    path: '/InterviewList',
+    component: () => import('@/views/find/components/InterviewList')
   }
 ]
 

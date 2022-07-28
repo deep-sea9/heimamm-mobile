@@ -1,10 +1,13 @@
 <template>
+  <!-- 面试技巧文章详情 -->
   <div class="InterviewInfo">
+    <!-- 导航栏 -->
     <van-nav-bar @click-left="$router.push('/find')">
       <template #left>
         <i class="iconfont" style="font-size:40px;">&#xe637;</i>
       </template>
     </van-nav-bar>
+    <!-- 文章详情 -->
     <div class="info">
       <div class="title">{{ list.title }}</div>
       <div class="other">

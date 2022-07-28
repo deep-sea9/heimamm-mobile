@@ -51,7 +51,7 @@
 
     <div class="info" v-for="(item, index) in list" :key="index">
       <div class="pic">
-        <img :src="'http://106.55.138.21:1337' + item.logo" alt="" />
+        <img :src="'http://192.168.11.131:1337' + item.logo" alt="" />
       </div>
       <div class="rightInfo">
         <div class="infoTop">

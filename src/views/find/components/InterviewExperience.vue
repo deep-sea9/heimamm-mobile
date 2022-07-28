@@ -1,4 +1,5 @@
 <template>
+  <!-- 面经分享模块 -->
   <div class="InterviewExperience">
     <!-- 面经分享 -->
     <van-cell-group>
@@ -22,7 +23,10 @@
       </div>
       <div class="other">
         <span class="user">
-          <img :src="'http://106.55.138.21:1337' + item.author.avatar" alt="" />
+          <img
+            :src="'http://192.168.11.131:1337' + item.author.avatar"
+            alt=""
+          />
           {{ item.author.nickname }}
         </span>
         <span class="time">{{ item.updated_at | formatTime }}</span>
