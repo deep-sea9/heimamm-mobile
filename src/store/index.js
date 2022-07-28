@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import persistedstate from 'vuex-persistedstate'
 
 import { auInfo } from '@/api/mine'
+import router from '@/router'
 
 Vue.use(Vuex)
 
@@ -21,6 +22,12 @@ export default new Vuex.Store({
     },
     setToken (state, value) {
       state.token = value
+    },
+    // 退出登录
+    leyout (state) {
+      state.userInfo = ''
+      state.token = ''
+      router.push('/login')
     }
   },
   actions: {

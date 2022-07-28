@@ -3,34 +3,35 @@
     <div class="top">
       <div class="top_NT">
         <div class="fontS">
-          <h3>{{ info.nickname }}</h3>
-          <p>{{ info.intro }}</p>
+          <h3>{{ userInfo.nickname }}</h3>
+          <p>{{ userInfo.intro }}</p>
         </div>
         <img
           class="photo"
-          :src="http + info.avatar"
+          :src="http + userInfo.avatar"
           alt=""
           @click="$router.push('/info')"
         />
       </div>
       <div class="Statistics">
         <div class="answer">
-          <h3>{{ info.submitNum }}</h3>
+          <h3>{{ userInfo.submitNum }}</h3>
           <p>累计答题</p>
         </div>
-        <div v-if="info.collectArticles" class="subject">
-          <h3>{{ info.collectArticles.length }}</h3>
+        <div v-if="userInfo.collectArticles" class="subject">
+          <h3>{{ userInfo.collectArticles.length }}</h3>
           <p>收藏题目</p>
         </div>
         <div class="wrong">
-          <h3>{{ info.errorNum }}</h3>
+          <h3>{{ userInfo.errorNum }}</h3>
           <p>我的错题</p>
         </div>
         <div class="correct">
           <h3>
             {{
               (
-                ((info.submitNum - info.errorNum) / info.submitNum) *
+                ((userInfo.submitNum - userInfo.errorNum) /
+                  userInfo.submitNum) *
                 100
               ).toFixed(2)
             }}%
@@ -42,7 +43,7 @@
     <div class="modular">
       <van-cell
         title="我的岗位"
-        value="世界最"
+        :value="userInfo.position"
         is-link
         @click="$router.push('/mine/post/position')"
       >
@@ -97,24 +98,30 @@
 </template>
 
 <script>
-import { auInfo } from '@/api/mine.js'
+import { mapState } from 'vuex'
+// import { auInfo } from '@/api/mine.js'
 export default {
   name: '',
   data () {
     return {
       info: '',
-      http: 'http://106.55.138.21:1337'
+      // http: 'http://106.55.138.21:1337'
+      http: 'http://192.168.11.131:1337'
     }
+  },
+  computed: {
+    ...mapState(['userInfo'])
   },
   created () {
-    this.getData()
+    // this.getData()
+    this.$store.dispatch('getUserInfo')
   },
   methods: {
-    async getData () {
-      const res = await auInfo()
-      this.info = res.data.data
-      console.log('获取用户数据：', this.info)
-    }
+    // async getData () {
+    //   const res = await auInfo()
+    //   this.info = res.data.data
+    //   console.log('获取用户数据：', this.info)
+    // }
   }
 }
 </script>

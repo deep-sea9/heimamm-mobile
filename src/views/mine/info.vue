@@ -11,20 +11,20 @@
       <van-cell title="头像" is-link @click="$router.push('/mine/post/avatar')">
         <template #extra>
           <!-- <van-image src="@/img/8.jpg" width="20" height="20"></van-image> -->
-          <img class="photo" :src="require('@/img/8.jpg')" alt="" />
+          <img class="photo" :src="http + userInfo.avatar" alt="" />
         </template>
       </van-cell>
       <van-cell-group>
         <van-cell
           title="昵称"
-          value="我嫩嫩"
+          :value="userInfo.nickname"
           is-link
           @click="$router.push('/mine/post/nickname')"
         ></van-cell>
         <!-- 修改性别 -->
         <van-cell
           title="性别"
-          value="女"
+          :value="userInfo.gender | getSex"
           is-link
           @click="showGender"
         ></van-cell>
@@ -34,7 +34,8 @@
           :style="{ height: '40%' }"
         >
           <van-picker
-            @cancel="onGender"
+            @confirm="subGender"
+            @cancel="onClick"
             show-toolbar
             :columns="columns"
           ></van-picker>
@@ -42,70 +43,88 @@
         <!-- 修改地区 -->
         <van-cell
           title="地区"
-          value="桂林市"
+          :value="area"
           is-link
           @click="showRegion"
         ></van-cell>
-        <van-popup
-          v-model="region"
-          position="bottom"
-          :style="{ height: '40%' }"
-        >
-          <van-picker
-            @cancel="onRegion"
-            show-toolbar
-            :columns="columns2"
-          ></van-picker>
+        <van-popup v-model="region" position="bottom">
+          <van-area
+            :area-list="areaList"
+            :value="userInfo.area"
+            :columns-num="2"
+            @cancel="onClick"
+            @confirm="subRegion"
+          />
         </van-popup>
 
         <van-cell
           title="个人简称"
-          value="我你嘚嘚嘚得得"
+          :value="userInfo.intro"
           is-link
           @click="$router.push('/mine/post/intro')"
         ></van-cell>
       </van-cell-group>
-      <van-button plain type="danger" block>退出登录</van-button>
+      <van-button plain type="danger" block @click="exit">退出登录</van-button>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { areaList } from '@vant/area-data'
+import { Dialog, Toast } from 'vant'
+import { auEdit } from '@/api/mine'
 export default {
   data () {
     return {
+      // http: 'http://106.55.138.21:1337',
+      http: 'http://192.168.11.131:1337',
+      // vant提供的城市编码
+      areaList,
       gender: false,
       region: false,
-      columns: [1, 2, 3],
-      columns2: [
-        {
-          text: '浙江',
-          children: [
-            {
-              text: '杭州',
-              children: [{ text: '西湖区' }, { text: '余杭区' }]
-            },
-            {
-              text: '温州',
-              children: [{ text: '鹿城区' }, { text: '瓯海区' }]
-            }
-          ]
-        },
-        {
-          text: '福建',
-          children: [
-            {
-              text: '福州',
-              children: [{ text: '鼓楼区' }, { text: '台江区' }]
-            },
-            {
-              text: '厦门',
-              children: [{ text: '思明区' }, { text: '海沧区' }]
-            }
-          ]
-        }
-      ]
+      columns: ['未知', '男', '女'],
+      fromData: {
+        nickname: '',
+        intro: '',
+        gender: '',
+        avatar: '',
+        position: '',
+        area: ''
+      }
     }
+  },
+  // 过滤
+  filters: {
+    getSex (value) {
+      if (value === 1) {
+        return '男'
+      } else if (value === 2) {
+        return '女'
+      } else {
+        return '未知'
+      }
+    }
+  },
+  computed: {
+    ...mapState(['userInfo']),
+    area () {
+      // 通过values渲染
+      // const a = Object.values(this.areaList.city_list).findIndex(item => {
+      //   return item === this.userInfo.area
+      // })
+      // return Object.keys(this.areaList.city_list)[a]
+      // 通过keys渲染
+      const a = Object.keys(this.areaList.city_list).find(item => {
+        return item === this.userInfo.area
+      })
+      return this.areaList.city_list[a]
+    }
+  },
+  created () {
+    console.log(this.area)
+    // console.log(this.areaList.city_list)
+    // console.log('11', this.userInfo.area)
   },
   methods: {
     showGender () {
@@ -115,11 +134,62 @@ export default {
       this.region = true
     },
     // 取消，关闭弹框
-    onGender () {
+    onClick () {
       this.gender = false
-    },
-    onRegion () {
       this.region = false
+    },
+    // 退出登录
+    exit () {
+      Dialog.confirm({
+        title: '提示',
+        message: '确定退出登录吗？'
+      })
+        .then(() => {
+          this.$store.commit('leyout')
+          this.$toast.success('退出登录成功')
+        })
+        .catch(() => {})
+    },
+    // 点击修改性别
+    async subGender (value) {
+      this.onClick()
+      Toast.loading({
+        message: '正在保存',
+        forbidClick: true,
+        duration: 0
+      })
+      // 拿到选中的下标index
+      const index = this.columns.findIndex(item => item === value)
+      // console.log('选取的下标', index)
+      await auEdit({ gender: index })
+      // console.log('value', value)
+      // console.log(res)
+
+      // 手动清除 Toast
+      Toast.clear()
+      this.$store.commit('setUserInfo', {
+        ...this.userInfo,
+        gender: index
+      })
+    },
+    // 修改地区
+    async subRegion (value) {
+      this.onClick()
+      Toast.loading({
+        message: '正在保存',
+        forbidClick: true,
+        duration: 0
+      })
+      // console.log(this.areaList.city_list)
+      // console.log(value)
+      await auEdit({ area: value[1].code })
+      // 手动清除 Toast
+      Toast.clear()
+      this.$store.commit('setUserInfo', {
+        ...this.userInfo,
+        area: value[1].code
+      })
+      // await auEdit({area:})
     }
   }
 }
@@ -128,17 +198,17 @@ export default {
 <style lang="less" scoped>
 .edit {
   background-color: #f7f4f5;
-  height: 667px;
   ::v-deep .van-icon-arrow-left {
     color: #171717;
   }
   .content {
     padding: 20px 15px;
+    position: relative;
     // 头像
     .photo {
-      position: fixed;
-      margin-left: 260px;
-      margin-top: -5px;
+      position: absolute;
+      right: 35px;
+      top: 5px;
       width: 35px;
       height: 35px;
       object-fit: cover;

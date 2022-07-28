@@ -29,7 +29,8 @@ import {
   Uploader,
   Form,
   Search,
-  List
+  List,
+  Area
 } from 'vant'
 
 Vue.use(Button)
@@ -59,3 +60,4 @@ Vue.use(Uploader)
 Vue.use(Image)
 Vue.use(Search)
 Vue.use(List)
+Vue.use(Area)
