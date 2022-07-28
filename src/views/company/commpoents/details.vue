@@ -1,6 +1,6 @@
 <template>
   <!-- 企业详情 -->
-  <div class="details">
+  <div class="details" v-if="list.length !== 0">
     <div class="bigbox">
       <div class="top">
         <!-- 导航栏 -->
@@ -47,6 +47,7 @@
           </div>
           <div class="weal">
             <div v-for="item in list.weals" :key="item.id">
+              <i class="iconfont" :class="item.icon"></i>
               {{ item.text }}
             </div>
           </div>
@@ -77,10 +78,12 @@
       </div>
       <div class="companyProfile">
         <h3>公司简介</h3>
-        <p>{{ list.desc }}</p>
-        <div>
-          <span>展开更多</span>
-          <i class="iconfont iconicon_zhankai"></i>
+        <p :class="['content', expande ? 'expande' : 'close']" ref="content">
+          {{ list.desc }}
+        </p>
+        <div @click="expandeClick">
+          <span>{{ expande ? '收起' : '展开更多' }}</span>
+          <van-icon :name="expande ? 'arrow-up' : 'arrow-down'" />
         </div>
       </div>
       <div class="companyPic">
@@ -124,7 +127,7 @@
               <span>分</span>
             </div>
             <span class="icon">
-              <van-rate v-model="state" readonly :size="18" />
+              <van-rate v-model="state" readonly color="#ffb302" :size="15" />
             </span>
           </div>
           <div class="evaluateRight">
@@ -135,47 +138,81 @@
             </div>
             <div class="smallRight">
               <span>
-                <van-rate v-model="state" readonly :size="18" />
+                <van-rate
+                  v-model="list.score.positionScore"
+                  readonly
+                  color="#ffb302"
+                  :size="15"
+                />
               </span>
               <span>
-                <van-rate v-model="state" readonly :size="18" />
+                <van-rate
+                  v-model="list.score.interviewScore"
+                  readonly
+                  color="#ffb302"
+                  :size="15"
+                />
               </span>
               <span>
-                <van-rate v-model="state" readonly :size="18" />
+                <van-rate
+                  v-model="list.score.interviewerScore"
+                  readonly
+                  color="#ffb302"
+                  :size="15"
+                />
               </span>
             </div>
           </div>
         </div>
-        <div class="comment" v-for="(item, index) in list2" :key="index">
-          <div class="commentLeft">
-            <img :src="'http://106.55.138.21:1337' + item.user.avatar" alt="" />
+        <van-list
+          v-model="loading"
+          :finished="finished"
+          finished-text="没有更多了"
+          @load="getComList"
+        >
+          <div class="comment" v-for="(item, index) in list2" :key="index">
+            <div class="commentLeft">
+              <img
+                :src="'http://192.168.11.131:1337' + item.user.avatar"
+                alt=""
+              />
+            </div>
+            <div class="commentRight">
+              <div class="userTop">
+                <div class="userLeft">
+                  <span class="userName">{{ item.user.nickname }}</span>
+                  <span>面试岗位:{{ item.position }}</span>
+                </div>
+              </div>
+              <div class="userMiddle">
+                <div v-for="(item2, index) in item.tags" :key="index">
+                  <span>{{ item2 }}</span>
+                </div>
+              </div>
+              <div class="userBouutom">
+                <p>{{ item.content }}</p>
+                <p>{{ item.created_at }}</p>
+              </div>
+            </div>
+            <div class="userRight">
+              <span class="userIcon">
+                <van-rate
+                  v-model="item.positionScore"
+                  readonly
+                  color="#ffb302"
+                  :size="15"
+                />
+              </span>
+            </div>
           </div>
-          <div class="commentRight">
-            <div class="userTop">
-              <div class="userLeft">
-                <span class="userName">{{ item.user.nickname }}</span>
-                <span>面试岗位:{{ item.position }}</span>
-              </div>
-              <div class="userRight">
-                <span class="userIcon">
-                  <van-rate v-model="item.positionScore" readonly :size="18" />
-                </span>
-              </div>
-            </div>
-            <div class="userMiddle">
-              <div v-for="(item2, index) in item.tags" :key="index">
-                <span>{{ item2 }}</span>
-              </div>
-            </div>
-            <div class="userBouutom">
-              <p>{{ item.content }}</p>
-              <p>{{ item.created_at }}</p>
-            </div>
-          </div>
+        </van-list>
+        <div class="footer">
+          <div>在招职位<span>50</span></div>
+          <div>企业面试题<span>100</span></div>
         </div>
       </div>
     </div>
-    <Comments :show.sync="show"></Comments>
+    <Comments v-model="show" ref="comment"></Comments>
   </div>
 </template>
 
@@ -191,32 +228,54 @@ export default {
       list: '',
       list2: [],
       show: false,
-      state: 4
+      state: 4,
+      expande: false,
+      needShowExpande: false,
+      loading: false,
+      finished: false,
+      start: 0
     }
   },
 
   created () {
     this.getData()
   },
+
   methods: {
-    receive (bol) {
-      this.show = bol
-    },
+    // receive (bol) {
+    //   this.show = bol
+    // },
     async getData () {
       // 获取公司详情
       // console.log(this.$route.params.id)
       const res = await companies(this.$route.params.id)
       this.list = res.data.data
-      const res2 = await companiesComments({
-        id: +this.$route.params.id,
-        start: 0
-      })
+
       // console.log(res2)
-      this.list2 = res2.data.data.list
+    },
+    // 获取评论列表
+    async getComList () {
+      const res = await companiesComments({
+        id: +this.$route.params.id,
+        start: this.start,
+        limit: 5
+      })
+      this.loading = false
+      this.list2.push(...res.data.data.list)
+      this.start = this.list2.length
+      if (this.list2.length === res.data.data.total) {
+        this.finished = true
+      }
     },
     // 写评论弹窗
     write () {
-      this.show = true
+      // console.log(123)
+      // this.show = true
+      this.$refs.comment.show = true
+    },
+    expandeClick () {
+      // console.log('expandeClick')
+      this.expande = !this.expande
     }
   }
 }
@@ -230,13 +289,10 @@ export default {
   background-color: rgba(0, 0, 0, 0);
 }
 .bigbox {
-  background: url('https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.soogif.com%2FQwCAOkorGzsl7pL4sG47iIvaPojkYqZC.gif&refer=http%3A%2F%2Fimg.soogif.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1661423765&t=a60113a2fbe9e286dc39ca4a0172b9ab')
-    no-repeat;
+  background: url('~@/assets/images/bg1.jpeg') no-repeat;
   filter: blur(0px); // 背景虚化
 }
 .details {
-  background-color: #fff;
-  height: 100vh;
   .navBar {
     .iconXing {
       color: #fff;
@@ -292,18 +348,26 @@ export default {
     }
     .weal {
       display: flex;
-      justify-content: space-around;
       margin-top: 20px;
-      width: 100%;
+      box-sizing: border-box;
       overflow-x: auto;
+      &::-webkit-scrollbar {
+        width: 0 !important;
+      }
       div {
-        flex: 1;
         display: flex;
         align-items: center;
         border: 1px solid #939aaa;
-        padding: 5px;
+        padding: 10px 5px;
         border-radius: 8px;
         color: #fff;
+        margin-right: 10px;
+        flex-shrink: 0;
+        i {
+          color: #fff;
+          font-size: 25px;
+          margin-right: 5px;
+        }
       }
     }
   }
@@ -330,6 +394,7 @@ export default {
       justify-content: space-between;
       align-items: center;
       .addressLeft {
+        flex: 1;
         span {
           &:nth-child(2) {
             margin: 0 20px;
@@ -382,10 +447,11 @@ export default {
 
       div {
         // flex: 1;
-        width: 100px;
+        width: 150px;
         height: 100px;
         margin-right: 10px;
         img {
+          border-radius: 10px;
           width: 100%;
           height: 100%;
         }
@@ -406,7 +472,7 @@ export default {
         flex-direction: column;
         color: #b6b6bf;
         span {
-          font-size: 12px;
+          font-size: 14px;
           margin-bottom: 20px;
         }
       }
@@ -415,7 +481,7 @@ export default {
         display: flex;
         flex-direction: column;
         span {
-          font-size: 12px;
+          font-size: 14px;
           margin-bottom: 20px;
         }
       }
@@ -429,21 +495,24 @@ export default {
       justify-content: space-between;
       span {
         &:nth-child(2) {
-          font-size: 12px;
+          font-size: 14px;
         }
       }
     }
     .evaluateBox {
       margin-top: 20px;
       display: flex;
-      padding: 20px;
+      align-items: center;
+      padding: 10px;
       background-color: #f7f7f7;
       .evaluateLeft {
+        flex: 1;
         border-right: 2px solid #eae8e8;
         display: flex;
         flex-direction: column;
+        justify-content: center;
         text-align: center;
-        padding: 10px;
+        // padding: 10px;
         span {
           &:nth-child(1) {
             color: #00b6d3;
@@ -474,7 +543,7 @@ export default {
         }
         .smallLeft {
           margin-right: 10px;
-          width: 60px;
+          width: 80px;
         }
       }
     }
@@ -484,13 +553,15 @@ export default {
     display: flex;
     .commentLeft {
       width: 50px;
+      margin-right: 15px;
       img {
-        width: 40px;
-        height: 40px;
+        width: 50px;
+        height: 50px;
         border-radius: 50%;
       }
     }
     .commentRight {
+      flex: 1;
       .userTop {
         display: flex;
         .userLeft {
@@ -504,10 +575,6 @@ export default {
             }
           }
         }
-        .userRight {
-          flex: 1;
-          text-align: right;
-        }
       }
       .userMiddle {
         margin-bottom: 20px;
@@ -517,6 +584,7 @@ export default {
           padding: 5px;
           background-color: #f7f4f5;
           border-radius: 5px;
+          font-size: 12px;
           &:nth-child(1) {
             margin-right: 7px;
           }
@@ -532,6 +600,35 @@ export default {
         }
       }
     }
+    // .userRight {
+    //   text-align: right;
+    // }
   }
+  .footer {
+    display: flex;
+    div {
+      flex: 1;
+      position: relative;
+      padding: 10px 0;
+      border: 1px solid #c6c6cc;
+      margin: 10px 5px;
+      text-align: center;
+      border-radius: 8px;
+      span {
+        position: absolute;
+        top: 0;
+        right: 30px;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.expande {
+  height: auto;
+}
+.close {
+  height: 70px;
+  overflow: hidden;
 }
 </style>

@@ -20,7 +20,7 @@
       <span>推荐</span>
       <span class="distance">距离 <i class="iconfont">&#xe65a;</i></span>
       <span class="grade">评分 <i class="iconfont">&#xe65a;</i></span>
-      <span>筛选</span>
+      <span @click="filters">筛选</span>
     </div>
     <van-list
       v-model="loading"

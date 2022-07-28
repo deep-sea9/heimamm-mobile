@@ -2,7 +2,7 @@
   <!-- 写评论的弹窗 -->
   <div>
     <van-popup
-      :v-model="show"
+      v-model="show"
       style="width: 80%"
       :close-on-click-overlay="false"
       @click-overlay="close"
@@ -82,22 +82,23 @@ export default {
       isshow: false,
       value: 3,
       list: [],
-      showList: false
+      showList: false,
+      show: false
     }
   },
   components: {
     Job
   },
   props: {
-    show: {
-      type: Boolean,
-      requierd: true
-    }
+    // show: {
+    //   type: Boolean,
+    //   requierd: true
+    // }
   },
   methods: {
     // 关闭评论框
     close () {
-      this.$emit('update:show', false)
+      this.show = false
     },
     // 打开选择岗位弹窗
     async selectJob () {

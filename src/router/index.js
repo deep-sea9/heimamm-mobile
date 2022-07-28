@@ -100,6 +100,10 @@ const routes = [
   {
     path: '/InterviewList',
     component: () => import('@/views/find/components/InterviewList')
+  },
+  {
+    path: '/test',
+    component: () => import('@/views/test')
   }
 ]
 
