@@ -53,3 +53,18 @@ export const articlesComments = data => {
     needToken: true
   })
 }
+
+// 获取城市索引
+export const chartDataIndexes = () => {
+  return request({
+    url: '/chart-data/indexes'
+  })
+}
+
+// 获取统计信息
+export const chartDataStatistics = params => {
+  return request({
+    url: '/chart-data/statistics',
+    params
+  })
+}

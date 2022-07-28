@@ -100,6 +100,11 @@ const routes = [
   {
     path: '/InterviewList',
     component: () => import('@/views/find/components/InterviewList')
+  },
+  // 市场数据
+  {
+    path: '/market',
+    component: () => import('@/views/find/components/chart')
   }
 ]
 

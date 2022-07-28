@@ -7,6 +7,7 @@
         value="查看更多"
         is-link
         style="padding:20px 15px"
+        @click="$router.push('/market')"
       />
     </van-cell-group>
     <div class="tags">
