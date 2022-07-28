@@ -30,6 +30,7 @@ import {
   Form,
   Search,
   List,
+  Area,
   Dialog,
   Lazyload,
   Swipe,
@@ -67,6 +68,8 @@ Vue.use(Uploader)
 Vue.use(Image)
 Vue.use(Search)
 Vue.use(List)
+Vue.use(Area)
+
 Vue.use(Lazyload)
 Vue.use(Swipe)
 Vue.use(SwipeItem)

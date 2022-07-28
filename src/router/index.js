@@ -47,15 +47,6 @@ const routes = [
           noTab: true
         },
         component: () => import('@/views/mine/info.vue')
-      },
-      {
-        path: '/mine/post/:editInfo',
-        name: 'post',
-        meta: {
-          needLogin: true,
-          noTab: true
-        },
-        component: () => import('@/views/mine/components/post.vue')
       }
     ]
   },
@@ -67,6 +58,15 @@ const routes = [
     path: '/login',
     component: () => import('@/views/login/index'),
     hidden: true
+  },
+  // mine子页面
+  {
+    path: '/mine/post/:editInfo',
+    name: 'post',
+    meta: {
+      needLogin: true
+    },
+    component: () => import('@/views/mine/components/post.vue')
   },
   // 面经分享列表
   {
