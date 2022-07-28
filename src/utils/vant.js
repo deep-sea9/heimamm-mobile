@@ -36,7 +36,8 @@ import {
   SwipeItem,
   ActionSheet,
   Grid,
-  GridItem
+  GridItem,
+  rate
 } from 'vant'
 
 Vue.use(Button)
@@ -73,3 +74,4 @@ Vue.use(ActionSheet)
 Vue.use(Grid)
 Vue.use(GridItem)
 Vue.use(Dialog)
+Vue.use(rate)

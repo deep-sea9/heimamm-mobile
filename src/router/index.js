@@ -90,6 +90,11 @@ const routes = [
   {
     path: '/InterviewExpInfo/:id',
     component: () => import('@/views/find/components/InterviewExpInfo')
+  },
+  {
+    path: '/details/:id',
+    name: '',
+    component: () => import('@/views/company/commpoents/details.vue')
   }
 ]
 
