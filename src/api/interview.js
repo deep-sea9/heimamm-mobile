@@ -39,3 +39,23 @@ export const questionsById = id => {
     needToken: true
   })
 }
+
+// 收藏面试题
+export const questionsCollect = data => {
+  return request({
+    url: '/questions/collect',
+    method: 'post',
+    needToken: true,
+    data
+  })
+}
+
+// 评论试题
+export const questionsComment = data => {
+  return request({
+    url: '/questions/comment',
+    method: 'post',
+    needToken: true,
+    data
+  })
+}

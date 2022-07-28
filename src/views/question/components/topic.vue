@@ -14,18 +14,18 @@
     </van-nav-bar>
     <div class="content">
       <div class="title">
-        【{{ subject.type === 1 ? '单选' : '多选' }}】{{ subject.title }}
+        【{{ subject.type | formatter(type) }}】{{ subject.title }}
       </div>
       <div class="tag">
         <span class="tip" v-for="(item, index) in subject.tag" :key="index">{{
           item
         }}</span>
       </div>
-      <div class="option">
+      <div class="option" v-if="subject.type === 1">
         <div
           :class="[
             {
-              active: currentIndex === index || mutilIndex.includes(index),
+              active: currentIndex === index,
               mistake: answer.errorIndex === index,
               correct: answer.trueIndex === index
             },
@@ -42,13 +42,37 @@
           {{ number[index] + '.  ' + item }}
         </div>
       </div>
+      <div class="option" v-else>
+        <div
+          :class="[
+            {
+              active: mutilIndex.includes(index),
+              correct: answer && answer.trueIndex[index] === index,
+              mistake: answer && answer.errorIndex.includes(index)
+            },
+            'item'
+          ]"
+          v-for="(item, index) in subject.option"
+          :key="index"
+          @click="selectedQa(index)"
+        >
+          <van-icon
+            :name="trueIndex[index] === index ? 'success' : 'cross'"
+            class="icon"
+          />
+          {{ number[index] + '.  ' + item }}
+        </div>
+      </div>
     </div>
     <div class="footer">
-      <div class="collect">
-        <van-icon name="star-o" />
+      <div class="collect" @click="collect">
+        <van-icon
+          :name="collected ? 'star' : 'star-o'"
+          :style="{ color: collected ? 'yellow' : '' }"
+        />
         <span>收藏</span>
       </div>
-      <div class="feedback">
+      <div class="feedback" @click="showFeedback = true">
         <van-icon name="edit" />
         <span>反馈</span>
       </div>
@@ -78,9 +102,20 @@
     <!-- 答案解析 -->
     <div class="answer" v-if="answer">
       <h3>答案解析</h3>
-      <p class="true">正确答案: {{ answer.result.singleAnswer }}</p>
+      <p class="your">
+        你的答案:
+        {{ answerData.singleAnswer || answerData.multipleAnswer.join(',') }}
+      </p>
+      <p class="true">
+        正确答案:
+        {{
+          answer.result.singleAnswer || answer.result.multipleAnswer.join(',')
+        }}
+      </p>
       <div class="info">
-        <span>难度: 困难</span>
+        <span
+          >难度: {{ answer.result.difficulty | formatter(difficulty) }}</span
+        >
         <span>提交次数: {{ answer.result.submitNum }}</span>
         <span>正确次数: {{ answer.result.correctNum }}</span>
       </div>
@@ -108,6 +143,28 @@
         </ul>
       </div>
     </van-action-sheet>
+
+    <!-- 意见反馈 -->
+    <van-popup v-model="showFeedback" round :style="{ width: '80%' }">
+      <div class="feedbackModal">
+        <h3>意见反馈</h3>
+        <van-field
+          v-model.trim="comment"
+          rows="6"
+          autosize
+          type="textarea"
+          maxlength="200"
+          placeholder="请输入你对此题的反馈意见"
+          show-word-limit
+        />
+        <div class="btn">
+          <van-button @click="closeFeedback">取消</van-button>
+          <van-button :disabled="!comment" @click="submitComment"
+            >提交</van-button
+          >
+        </div>
+      </div>
+    </van-popup>
   </div>
 </template>
 
@@ -115,7 +172,9 @@
 import {
   interviewQuestions,
   questionsSubmit,
-  questionsById
+  questionsById,
+  questionsCollect,
+  questionsComment
 } from '@/api/interview'
 
 export default {
@@ -139,8 +198,28 @@ export default {
       // 当前题目索引值
       current: 0,
       id: 0,
-      // 已经答题的题目
-      complete: []
+      // 已经答题的单选题目解析
+      complete: [],
+      // 多选题目解析
+      multihistory: [],
+      answerData: {
+        id: '',
+        singleAnswer: '',
+        multipleAnswer: []
+      },
+      collected: false,
+      showFeedback: false,
+      comment: '',
+      type: {
+        1: '单选',
+        2: '多选',
+        3: '简答'
+      },
+      difficulty: {
+        1: '简单',
+        2: '中等',
+        3: '困难'
+      }
     }
   },
   created () {
@@ -187,33 +266,31 @@ export default {
     },
     // 提交试题
     async submit () {
-      let answer = {}
+      this.answerData.id = this.id
       if (this.subject.type === 1) {
-        answer = {
-          id: this.id,
-          singleAnswer: this.subject.option[this.currentIndex].toUpperCase()
+        this.answerData.singleAnswer = this.number[this.currentIndex]
+      } else {
+        this.answerData.multipleAnswer = this.mutilIndex.map(item => {
+          return this.number.find((v, index) => item === index)
+        })
+      }
+      // 提交答案,获得解析
+      const res = await questionsSubmit(this.answerData)
+
+      if (this.subject.type === 1) {
+        this.trueIndex = this.number.findIndex(
+          item => item === res.data.data.singleAnswer
+        )
+        if (this.trueIndex !== this.currentIndex) {
+          this.errorIndex = this.currentIndex
         }
       } else {
-        const arr = this.subject.option.filter((item, index) => {
-          return this.mutilIndex.includes(index)
+        this.trueIndex = res.data.data.multipleAnswer.map(item => {
+          return this.number.findIndex(v => v === item)
         })
-        const newarr = arr.map(item => item.toUpperCase())
-
-        answer = {
-          id: this.id,
-          multipleAnswer: newarr
-        }
-      }
-
-      const res = await questionsSubmit(answer)
-
-      console.log(res)
-
-      this.trueIndex = this.number.findIndex(
-        item => item === res.data.data.singleAnswer
-      )
-      if (this.trueIndex !== this.currentIndex) {
-        this.errorIndex = this.currentIndex
+        this.errorIndex = this.mutilIndex.filter(item => {
+          return !this.trueIndex.includes(item)
+        })
       }
       this.complete.push({
         index: this.current,
@@ -221,20 +298,21 @@ export default {
         trueIndex: this.trueIndex,
         errorIndex: this.errorIndex
       })
-      // console.log(this.trueIndex)
+
+      this.currentIndex = -1
+      this.mutilIndex = []
     },
     // 获取新题目
     async newSubject (id) {
       const res = await questionsById(id)
       this.subject = res.data.data
-      this.currentIndex = -1
-      // this.answer = ''
+
       this.errorIndex = ''
       this.trueIndex = ''
     },
     // 答题卡跳转题目
     goSubject (item, index) {
-      this.nextSubject(item.id)
+      this.newSubject(item.id)
       this.current = index
       this.show = false
     },
@@ -242,17 +320,44 @@ export default {
     nextSubject () {
       this.newSubject(this.list[this.current].id)
       this.current++
+    },
+    // 收藏试题
+    async collect () {
+      await questionsCollect({ id: this.id })
+      this.collected = true
+      this.$toast.success('收藏成功')
+    },
+    // 提交反馈
+    async submitComment () {
+      await questionsComment({
+        content: this.comment,
+        question: this.id
+      })
+      this.$toast.success('感谢你的反馈,您的意见会使我们更好进步')
+      this.showFeedback = false
+      this.comment = ''
+    },
+    closeFeedback () {
+      this.showFeedback = false
+      this.comment = ''
     }
   },
   computed: {
     // 本次的解析
     answer () {
       const res = this.complete.find(item => item.index === this.current)
+
       if (res) {
         return res
       } else {
         return false
       }
+    }
+  },
+  filters: {
+    formatter (value, type) {
+      const key = Object.keys(type).find(key => key === value + '')
+      return type[key]
     }
   }
 }
@@ -263,6 +368,7 @@ export default {
   background-color: #fff;
   height: 100vh;
   padding: 0 15px;
+
   .navbar {
     width: 80px;
     position: relative;
@@ -292,7 +398,7 @@ export default {
       margin-top: 10px;
       .item {
         position: relative;
-        padding: 10px 0;
+        padding: 10px;
         padding-left: 15px;
         border: 1px solid #efefef;
         margin-bottom: 15px;
@@ -306,7 +412,8 @@ export default {
           display: none;
           position: absolute;
           right: 15px;
-          top: 10px;
+          top: 50%;
+          transform: translateY(-50%);
         }
         &.mistake {
           background-color: #ffefea;
@@ -333,6 +440,7 @@ export default {
     left: 0;
     width: 100%;
     padding: 15px 0;
+    background-color: #fff;
     .collect,
     .feedback {
       display: flex;
@@ -362,6 +470,11 @@ export default {
     }
   }
   .answer {
+    padding-bottom: 80px;
+    .your {
+      margin-top: 15px;
+      color: #8f8f00;
+    }
     .true {
       padding: 15px 0;
       color: #1dcbc4;
@@ -415,6 +528,26 @@ export default {
           }
         }
       }
+    }
+  }
+  .feedbackModal {
+    h3 {
+      text-align: center;
+      padding: 15px 0 5px;
+    }
+    .btn {
+      display: flex;
+      margin-top: 5px;
+      .van-button {
+        flex: 1;
+        text-align: center;
+      }
+    }
+
+    ::v-deep .van-cell__value {
+      background-color: #f7f4f5;
+      border-radius: 5px;
+      padding: 5px;
     }
   }
 }

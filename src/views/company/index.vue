@@ -98,7 +98,7 @@ export default {
         start: this.start,
         limit: 5
       })
-      console.log('公司列表', res)
+      // console.log('公司列表', res)
       // this.list = res.data.data.list
       this.loading = false
       this.list.push(...res.data.data.list)
@@ -117,7 +117,7 @@ export default {
 
 <style lang="less" scoped>
 .company {
-  padding: 20px;
+  padding: 10px;
   .header {
     box-sizing: border-box;
     padding: 0 20px;
@@ -158,6 +158,7 @@ export default {
     margin-top: 20px;
     display: flex;
     align-items: center;
+
     .distance {
       margin: 0 40px;
       display: inline-block;
@@ -171,7 +172,7 @@ export default {
       text-align: right;
     }
     span {
-      font-size: 15px;
+      font-size: 14px;
     }
     i {
       font-size: 15px;
