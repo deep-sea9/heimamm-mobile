@@ -16,76 +16,40 @@
         alt=""
       />
     </div>
-
-    <div class="title">
-      <div class="left">
-        <span>推荐</span>
-        <div class="distance">
-          <span>距离</span>
-          <i class="iconfont iconicon_paixu_shengxu"></i>
-        </div>
-        <span class="iconfont">距离&#xe65a;</span>
-        <span class="iconfont">评分&#xe65a;</span>
-      </div>
-      <div class="screen">筛选</div>
+    <div class="category">
+      <span>推荐</span>
+      <span class="distance">距离 <i class="iconfont">&#xe65a;</i></span>
+      <span class="grade">评分 <i class="iconfont">&#xe65a;</i></span>
+      <span>筛选</span>
     </div>
 
-    <div class="info" v-for="(item, index) in list" :key="index">
-      <div class="pic">
-        <img :src="'http://192.168.11.131:1337' + item.logo" alt="" />
-      </div>
-      <div class="rightInfo">
-        <div class="infoTop">
-          <span>{{ item.name }}</span>
-          <span>{{ item.score }}分</span>
-        </div>
-        <div class="score">
-          <span>评分</span>
-          <i class="iconfont iconicon_paixu_shengxu"></i>
-        </div>
-      </div>
-      <span class="right" @click="filters">筛选</span>
-      <div class="category">
-        <span>推荐</span>
-        <span class="distance">距离 <i class="iconfont">&#xe65a;</i></span>
-        <span class="grade">评分 <i class="iconfont">&#xe65a;</i></span>
-        <span>筛选</span>
-      </div>
-    </div>
     <van-list
       v-model="loading"
       :finished="finished"
       finished-text="没有更多了"
       @load="getData"
     >
-      <div
-        class="info"
-        v-for="item in list"
-        :key="item.id"
-        @click="setNext(item.id)"
-      >
+      <div class="info" v-for="(item, index) in list" :key="index">
         <div class="pic">
-          <img :src="'http://106.55.138.21:1337' + item.logo" alt="" />
+          <img :src="'http://192.168.11.131:1337' + item.logo" alt="" />
         </div>
         <div class="rightInfo">
           <div class="infoTop">
             <span>{{ item.name }}</span>
+            <span>{{ item.score }}分</span>
           </div>
-          <p class="address">
-            <span>{{ item.region }}</span>
-            <span>{{ item.distance }}</span>
-          </p>
-          <div class="infoBtn">
-            <span>{{ item.type }}</span>
-            <span class="B">{{ item.step }}</span>
-            <span>{{ item.scale }}</span>
+          <div class="score">
+            <span>评分</span>
+            <i class="iconfont iconicon_paixu_shengxu"></i>
           </div>
-          <p class="pInfo">
-            在招职位: <span>{{ item.positions }}</span
-            ><span>/</span>最后更新时间:{{ item.updated_at | formatTime }}
-          </p>
         </div>
-        <div class="score">{{ item.score }}分</div>
+        <span class="right" @click="filters">筛选</span>
+        <div class="category">
+          <span>推荐</span>
+          <span class="distance">距离 <i class="iconfont">&#xe65a;</i></span>
+          <span class="grade">评分 <i class="iconfont">&#xe65a;</i></span>
+          <span>筛选</span>
+        </div>
       </div>
     </van-list>
     <Filters ref="show"></Filters>
