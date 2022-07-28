@@ -22,7 +22,7 @@
         <div class="distance">
           <span>距离</span>
           <i class="iconfont iconicon_paixu_shengxu"></i>
-
+        </div>
         <span class="iconfont">距离&#xe65a;</span>
         <span class="iconfont">评分&#xe65a;</span>
       </div>
