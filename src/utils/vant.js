@@ -30,6 +30,7 @@ import {
   Form,
   Search,
   List,
+  Area,
   Dialog,
   Lazyload,
   Swipe,
@@ -37,7 +38,7 @@ import {
   ActionSheet,
   Grid,
   GridItem,
-  rate
+  Rate
 } from 'vant'
 
 Vue.use(Button)
@@ -67,6 +68,8 @@ Vue.use(Uploader)
 Vue.use(Image)
 Vue.use(Search)
 Vue.use(List)
+Vue.use(Area)
+
 Vue.use(Lazyload)
 Vue.use(Swipe)
 Vue.use(SwipeItem)
@@ -74,4 +77,4 @@ Vue.use(ActionSheet)
 Vue.use(Grid)
 Vue.use(GridItem)
 Vue.use(Dialog)
-Vue.use(rate)
+Vue.use(Rate)

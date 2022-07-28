@@ -3,31 +3,39 @@
     <div class="top">
       <div class="top_NT">
         <div class="fontS">
-          <h3>我嫩嫩</h3>
-          <p>我你嘚嘚嘚得得</p>
+          <h3>{{ userInfo.nickname }}</h3>
+          <p>{{ userInfo.intro }}</p>
         </div>
         <img
           class="photo"
-          src="@/img/8.jpg"
+          :src="http + userInfo.avatar"
           alt=""
           @click="$router.push('/info')"
         />
       </div>
       <div class="Statistics">
         <div class="answer">
-          <h3>2303</h3>
+          <h3>{{ userInfo.submitNum }}</h3>
           <p>累计答题</p>
         </div>
-        <div class="subject">
-          <h3>7</h3>
+        <div v-if="userInfo.collectArticles" class="subject">
+          <h3>{{ userInfo.collectArticles.length }}</h3>
           <p>收藏题目</p>
         </div>
         <div class="wrong">
-          <h3>92</h3>
+          <h3>{{ userInfo.errorNum }}</h3>
           <p>我的错题</p>
         </div>
         <div class="correct">
-          <h3>19%</h3>
+          <h3>
+            {{
+              (
+                ((userInfo.submitNum - userInfo.errorNum) /
+                  userInfo.submitNum) *
+                100
+              ).toFixed(2)
+            }}%
+          </h3>
           <p>正确率</p>
         </div>
       </div>
@@ -35,7 +43,7 @@
     <div class="modular">
       <van-cell
         title="我的岗位"
-        value="世界最"
+        :value="userInfo.position"
         is-link
         @click="$router.push('/mine/post/position')"
       >
@@ -90,20 +98,30 @@
 </template>
 
 <script>
-import { auInfo } from '@/api/mine.js'
+import { mapState } from 'vuex'
+// import { auInfo } from '@/api/mine.js'
 export default {
   name: '',
   data () {
-    return {}
+    return {
+      info: '',
+      // http: 'http://106.55.138.21:1337'
+      http: 'http://192.168.11.131:1337'
+    }
+  },
+  computed: {
+    ...mapState(['userInfo'])
   },
   created () {
-    this.getData()
+    // this.getData()
+    this.$store.dispatch('getUserInfo')
   },
   methods: {
-    async getData () {
-      const res = await auInfo()
-      console.log(res)
-    }
+    // async getData () {
+    //   const res = await auInfo()
+    //   this.info = res.data.data
+    //   console.log('获取用户数据：', this.info)
+    // }
   }
 }
 </script>
