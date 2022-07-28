@@ -22,6 +22,21 @@
         <div class="distance">
           <span>距离</span>
           <i class="iconfont iconicon_paixu_shengxu"></i>
+
+        <span class="iconfont">距离&#xe65a;</span>
+        <span class="iconfont">评分&#xe65a;</span>
+      </div>
+      <div class="screen">筛选</div>
+    </div>
+
+    <div class="info" v-for="(item, index) in list" :key="index">
+      <div class="pic">
+        <img :src="'http://192.168.11.131:1337' + item.logo" alt="" />
+      </div>
+      <div class="rightInfo">
+        <div class="infoTop">
+          <span>{{ item.name }}</span>
+          <span>{{ item.score }}分</span>
         </div>
         <div class="score">
           <span>评分</span>

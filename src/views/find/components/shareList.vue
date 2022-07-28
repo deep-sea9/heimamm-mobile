@@ -1,14 +1,17 @@
 <template>
   <div class="shareList">
+    <!-- 导航栏 -->
     <van-nav-bar title="我分享的面经" @click-left="$router.push('/find')">
       <template #left>
         <i class="iconfont" style="font-size:40px;">&#xe637;</i>
       </template>
     </van-nav-bar>
+    <!-- 搜索框 -->
     <div class="search" @click="shareSearch">
       <i class="iconfont">&#xe647;</i>
       请输入关键字
     </div>
+    <!-- loading 加载 -->
     <van-loading
       size="24px"
       style="text-align: center;"
@@ -16,6 +19,7 @@
     >
       加载中...</van-loading
     >
+    <!-- 列表 -->
     <div class="shareItem" v-for="(item, index) in list" :key="index">
       <div class="title">{{ item.title }}</div>
       <div class="content">
@@ -23,7 +27,10 @@
       </div>
       <div class="other">
         <span class="user">
-          <img :src="'http://106.55.138.21:1337' + item.author.avatar" alt="" />
+          <img
+            :src="'http://192.168.11.131:1337' + item.author.avatar"
+            alt=""
+          />
           {{ item.author.nickname }}
         </span>
         <span class="time">{{ item.updated_at | formatTime }}</span>

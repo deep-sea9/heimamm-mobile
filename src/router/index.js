@@ -95,6 +95,11 @@ const routes = [
     path: '/details/:id',
     name: '',
     component: () => import('@/views/company/commpoents/details.vue')
+  },
+  // 面试技巧详情列表
+  {
+    path: '/InterviewList',
+    component: () => import('@/views/find/components/InterviewList')
   }
 ]
 

@@ -6,6 +6,7 @@
         title="面试技巧"
         value="查看更多"
         is-link
+        to="/InterviewList"
         style="padding:20px 15px"
       />
     </van-cell-group>
@@ -28,7 +29,7 @@
         </div>
       </div>
       <div class="right">
-        <img :src="'http://106.55.138.21:1337' + item.cover" alt="" />
+        <img :src="'http://192.168.11.131:1337' + item.cover" alt="" />
       </div>
     </div>
   </div>
@@ -53,7 +54,6 @@ export default {
       this.list = res.data.data.list
       console.log(this.list)
     }
-    // 获取文章详情
   }
 }
 </script>
