@@ -238,6 +238,8 @@ export default {
   filter: blur(0px); // 背景虚化
 }
 .details {
+  background-color: #fff;
+  height: 100vh;
   .navBar {
     .iconXing {
       color: #fff;
