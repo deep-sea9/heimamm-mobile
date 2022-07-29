@@ -18,6 +18,9 @@ const routes = [
       {
         path: '/company',
         name: '',
+        meta: {
+          keep: true
+        },
         component: () => import('@/views/company')
       },
       {
@@ -37,18 +40,17 @@ const routes = [
           needLogin: true
         },
         component: () => import('@/views/mine')
-      },
-      // 修改用户信息路由
-      {
-        path: '/info',
-        name: 'info',
-        meta: {
-          needLogin: true,
-          noTab: true
-        },
-        component: () => import('@/views/mine/info.vue')
       }
     ]
+  },
+  // 修改用户信息路由
+  {
+    path: '/info',
+    name: 'info',
+    meta: {
+      needLogin: true
+    },
+    component: () => import('@/views/mine/info.vue')
   },
   {
     path: '/question/topic',

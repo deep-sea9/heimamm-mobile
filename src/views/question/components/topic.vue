@@ -274,6 +274,7 @@ export default {
           return this.number.find((v, index) => item === index)
         })
       }
+
       // 提交答案,获得解析
       const res = await questionsSubmit(this.answerData)
 
@@ -306,20 +307,28 @@ export default {
     async newSubject (id) {
       const res = await questionsById(id)
       this.subject = res.data.data
-
+      this.id = id
       this.errorIndex = ''
       this.trueIndex = ''
+      this.answerData = {
+        id: '',
+        singleAnswer: '',
+        multipleAnswer: []
+      }
+      this.collected = false
     },
     // 答题卡跳转题目
     goSubject (item, index) {
+      console.log(item, index)
       this.newSubject(item.id)
       this.current = index
       this.show = false
     },
     // 下一题
     nextSubject () {
+      this.current = this.current + 1
       this.newSubject(this.list[this.current].id)
-      this.current++
+      // this.current++
     },
     // 收藏试题
     async collect () {

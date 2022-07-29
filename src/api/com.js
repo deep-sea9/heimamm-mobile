@@ -15,7 +15,8 @@ export const companies = id => {
 // 获取公司评论数据
 export const companiesComments = params => {
   return request({
-    url: `/companies/${params.id}/comments`
+    url: `/companies/${params.id}/comments`,
+    params
   })
 }
 // 获取公司职位

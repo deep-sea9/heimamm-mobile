@@ -150,10 +150,10 @@ export default {
         this.complete++
         this.total++
         this.rate++
-        if (this.complete > 58 && this.rate > 70 && this.total > 126) {
+        if (this.complete > 58 && this.rate > 50 && this.total > 126) {
           this.complete = 58
           this.total = 126
-          this.rate = 70
+          this.rate = 50
           clearInterval(timer)
         }
       }, 10)

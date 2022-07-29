@@ -183,6 +183,16 @@
                   <span class="userName">{{ item.user.nickname }}</span>
                   <span>面试岗位:{{ item.position }}</span>
                 </div>
+                <div class="userRight">
+                  <span class="userIcon">
+                    <van-rate
+                      v-model="item.positionScore"
+                      readonly
+                      color="#ffb302"
+                      :size="15"
+                    />
+                  </span>
+                </div>
               </div>
               <div class="userMiddle">
                 <div v-for="(item2, index) in item.tags" :key="index">
@@ -193,16 +203,6 @@
                 <p>{{ item.content }}</p>
                 <p>{{ item.created_at }}</p>
               </div>
-            </div>
-            <div class="userRight">
-              <span class="userIcon">
-                <van-rate
-                  v-model="item.positionScore"
-                  readonly
-                  color="#ffb302"
-                  :size="15"
-                />
-              </span>
             </div>
           </div>
         </van-list>
@@ -564,6 +564,8 @@ export default {
       flex: 1;
       .userTop {
         display: flex;
+        justify-content: space-between;
+        align-items: center;
         .userLeft {
           display: flex;
           flex-direction: column;
@@ -574,6 +576,9 @@ export default {
               margin: 10px 0;
             }
           }
+        }
+        .userRight {
+          text-align: right;
         }
       }
       .userMiddle {
@@ -600,9 +605,6 @@ export default {
         }
       }
     }
-    // .userRight {
-    //   text-align: right;
-    // }
   }
   .footer {
     display: flex;

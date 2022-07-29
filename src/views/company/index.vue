@@ -1,5 +1,5 @@
 <template>
-  <div class="company">
+  <div class="company" @scroll="setScroll" ref="company">
     <div class="header">
       <span class="companyName">公司</span>
       <i class="iconfont iconicon_search searchIcon"></i>
@@ -74,11 +74,15 @@ export default {
       list: [],
       loading: false,
       finished: false,
-      start: 0
+      start: 0,
+      scrollTop: 0
     }
   },
   created () {
     // this.getData()
+  },
+  activated () {
+    this.$refs.company.scrollTop = this.scrollTop
   },
   methods: {
     filters () {
@@ -102,6 +106,9 @@ export default {
     setNext (id) {
       // this.$bus.$emit('getId', id)
       this.$router.push('/details/' + id)
+    },
+    setScroll (e) {
+      this.scrollTop = e.target.scrollTop
     }
   }
 }
@@ -112,6 +119,7 @@ export default {
   background-color: #fff;
   height: 100vh;
   padding: 10px;
+  overflow-y: auto;
   .header {
     box-sizing: border-box;
     padding: 0 20px;
