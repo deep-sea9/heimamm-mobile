@@ -107,6 +107,10 @@ const routes = [
   {
     path: '/market',
     component: () => import('@/views/find/components/chart')
+  },
+  {
+    path: '/map',
+    component: () => import('@/views/map')
   }
 ]
 

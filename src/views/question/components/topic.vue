@@ -93,6 +93,8 @@
           type="danger"
           style="margin-right: 15px"
           @click="submit"
+          :loading="loading"
+          loading-type="spinner"
           :disabled="currentIndex === -1 && mutilIndex.length == 0"
           >提交</van-button
         >
@@ -100,29 +102,31 @@
     </div>
 
     <!-- 答案解析 -->
-    <div class="answer" v-if="answer">
-      <h3>答案解析</h3>
-      <p class="your">
-        你的答案:
-        {{ answerData.singleAnswer || answerData.multipleAnswer.join(',') }}
-      </p>
-      <p class="true">
-        正确答案:
-        {{
-          answer.result.singleAnswer || answer.result.multipleAnswer.join(',')
-        }}
-      </p>
-      <div class="info">
-        <span
-          >难度: {{ answer.result.difficulty | formatter(difficulty) }}</span
-        >
-        <span>提交次数: {{ answer.result.submitNum }}</span>
-        <span>正确次数: {{ answer.result.correctNum }}</span>
+    <transition name="answer">
+      <div class="answer" v-if="answer">
+        <h3>答案解析</h3>
+        <p class="your">
+          你的答案:
+          {{ answerData.singleAnswer || answerData.multipleAnswer.join(',') }}
+        </p>
+        <p class="true">
+          正确答案:
+          {{
+            answer.result.singleAnswer || answer.result.multipleAnswer.join(',')
+          }}
+        </p>
+        <div class="info">
+          <span
+            >难度: {{ answer.result.difficulty | formatter(difficulty) }}</span
+          >
+          <span>提交次数: {{ answer.result.submitNum }}</span>
+          <span>正确次数: {{ answer.result.correctNum }}</span>
+        </div>
+        <div class="detail">
+          {{ answer.result.answerAnalysis }}
+        </div>
       </div>
-      <div class="detail">
-        {{ answer.result.answerAnalysis }}
-      </div>
-    </div>
+    </transition>
 
     <!-- 答题卡 -->
     <van-action-sheet v-model="show" title="答题卡" class="action">
@@ -219,7 +223,8 @@ export default {
         1: '简单',
         2: '中等',
         3: '困难'
-      }
+      },
+      loading: false
     }
   },
   created () {
@@ -266,6 +271,7 @@ export default {
     },
     // 提交试题
     async submit () {
+      this.loading = true
       this.answerData.id = this.id
       if (this.subject.type === 1) {
         this.answerData.singleAnswer = this.number[this.currentIndex]
@@ -299,7 +305,7 @@ export default {
         trueIndex: this.trueIndex,
         errorIndex: this.errorIndex
       })
-
+      this.loading = false
       this.currentIndex = -1
       this.mutilIndex = []
     },
@@ -565,5 +571,15 @@ export default {
   height: 35px;
   border: 1px solid #bebec5;
   border-radius: 50%;
+}
+
+.answer-enter-active,
+.answer-leave-active {
+  opacity: 1;
+  transition: all 0.5s;
+}
+.answer-enter,
+.answer-leave-to {
+  opacity: 0;
 }
 </style>

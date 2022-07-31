@@ -6,13 +6,19 @@
         <!-- 导航栏 -->
         <div class="navBar">
           <van-nav-bar
+            :border="false"
             left-arrow
             class="nbr"
             @click-left="$router.push('/company')"
           >
             <template #right>
-              <i class="iconfont iconxingxing2 iconXing"></i>
-              <i class="iconfont iconbtn_share iconShare"></i>
+              <div class="share">
+                <i class="iconfont iconxingxing2 iconXing"></i>
+                <i
+                  class="iconfont iconbtn_share iconShare"
+                  @click="showShare = true"
+                ></i>
+              </div>
             </template>
           </van-nav-bar>
         </div>
@@ -71,7 +77,18 @@
             </div>
             <p>距离当前50m,步行需要57秒</p>
           </div>
-          <div class="addressRight">
+          <div
+            class="addressRight"
+            @click="
+              $router.push({
+                path: '/map',
+                query: {
+                  latitude: list.latitude,
+                  longitude: list.longitude
+                }
+              })
+            "
+          >
             <span><i class="iconfont iconicon_gongsi_daohang"></i>导航</span>
           </div>
         </div>
@@ -172,10 +189,7 @@
         >
           <div class="comment" v-for="(item, index) in list2" :key="index">
             <div class="commentLeft">
-              <img
-                :src="'http://192.168.11.131:1337' + item.user.avatar"
-                alt=""
-              />
+              <img :src="http + item.user.avatar" alt="" />
             </div>
             <div class="commentRight">
               <div class="userTop">
@@ -207,12 +221,23 @@
           </div>
         </van-list>
         <div class="footer">
-          <div>在招职位<span>50</span></div>
-          <div>企业面试题<span>100</span></div>
+          <div>
+            <span>在招职位 <span>60</span></span>
+          </div>
+          <div>
+            <span>企业面试题 <span>100</span></span>
+          </div>
         </div>
       </div>
     </div>
     <Comments v-model="show" ref="comment"></Comments>
+
+    <!-- 分享面板 -->
+    <van-share-sheet
+      v-model="showShare"
+      title="立即分享给好友"
+      :options="options"
+    />
   </div>
 </template>
 
@@ -233,7 +258,16 @@ export default {
       needShowExpande: false,
       loading: false,
       finished: false,
-      start: 0
+      start: 0,
+      http: 'http://106.55.138.21:1337',
+      showShare: false,
+      options: [
+        { name: '微信', icon: 'wechat' },
+        { name: '微博', icon: 'weibo' },
+        { name: '复制链接', icon: 'link' },
+        { name: '分享海报', icon: 'poster' },
+        { name: '二维码', icon: 'qrcode' }
+      ]
     }
   },
 
@@ -293,15 +327,22 @@ export default {
   filter: blur(0px); // 背景虚化
 }
 .details {
+  background-color: #fff;
+  padding-bottom: 60px;
   .navBar {
-    .iconXing {
-      color: #fff;
-      font-size: 20px;
-    }
-    .iconShare {
-      color: #fff;
-      margin-left: 10px;
-      font-size: 22px;
+    .share {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .iconXing {
+        color: #fff;
+        font-size: 25px;
+      }
+      .iconShare {
+        color: #fff;
+        margin-left: 15px;
+        font-size: 30px;
+      }
     }
   }
   .topInfo {
@@ -315,6 +356,7 @@ export default {
         img {
           width: 100%;
           height: 100%;
+          border-radius: 5px;
         }
       }
       .topLeft {
@@ -336,10 +378,13 @@ export default {
     }
     .jobTime {
       margin-top: 20px;
+      font-size: 13px;
       span {
         color: #eaeaed;
         .icon {
           color: #fff;
+          margin-right: 5px;
+          vertical-align: middle;
         }
         &:nth-child(2) {
           margin: 0 10px;
@@ -351,6 +396,7 @@ export default {
       margin-top: 20px;
       box-sizing: border-box;
       overflow-x: auto;
+      font-size: 14px;
       &::-webkit-scrollbar {
         width: 0 !important;
       }
@@ -607,7 +653,13 @@ export default {
     }
   }
   .footer {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
     display: flex;
+    background-color: #fff;
+    padding: 0 15px;
     div {
       flex: 1;
       position: relative;
@@ -616,12 +668,7 @@ export default {
       margin: 10px 5px;
       text-align: center;
       border-radius: 8px;
-      span {
-        position: absolute;
-        top: 0;
-        right: 30px;
-        font-size: 12px;
-      }
+      font-size: 14px;
     }
   }
 }
