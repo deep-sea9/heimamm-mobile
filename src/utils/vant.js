@@ -38,7 +38,8 @@ import {
   ActionSheet,
   Grid,
   GridItem,
-  Rate
+  Rate,
+  ShareSheet
 } from 'vant'
 
 Vue.use(Button)
@@ -78,3 +79,4 @@ Vue.use(Grid)
 Vue.use(GridItem)
 Vue.use(Dialog)
 Vue.use(Rate)
+Vue.use(ShareSheet)

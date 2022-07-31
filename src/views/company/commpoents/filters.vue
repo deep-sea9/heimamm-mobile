@@ -30,15 +30,11 @@
       <div class="scoreInfo">
         <h3>评分</h3>
         <div class="scoreBtn">
-          <div class="btnLeft">
-            <van-button class="item">4分-5分</van-button>
-            <van-button class="item">2分-2.9分</van-button>
-            <van-button class="item">1分以下</van-button>
-          </div>
-          <div class="btnRight">
-            <van-button class="item">3分-3.9分</van-button>
-            <van-button class="item">1分-1.9分</van-button>
-          </div>
+          <van-button class="item">4分-5分</van-button>
+          <van-button class="item">3分-3.9分</van-button>
+          <van-button class="item">2分-2.9分</van-button>
+          <van-button class="item">1分-1.9分</van-button>
+          <van-button class="item">1分以下</van-button>
         </div>
       </div>
       <div class="footer">
@@ -68,7 +64,7 @@ export default {
   top: 60px;
 }
 .van-popup--top {
-  top: 60px;
+  top: 50px;
 }
 .pop {
   padding: 15px;
@@ -89,6 +85,7 @@ export default {
   .right {
     flex: 1;
     text-align: right;
+    color: red;
   }
   span {
     font-size: 15px;
@@ -98,9 +95,10 @@ export default {
   }
 }
 .distanceInfo {
+  margin-top: 20px;
   h3 {
     font-size: 17px;
-    margin: 6px 0;
+    margin: 15px 0;
   }
   .distanceBtn {
     display: flex;
@@ -127,22 +125,18 @@ export default {
   }
   .scoreBtn {
     display: flex;
-    .btnLeft,
-    .btnRight {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      .item {
-        height: 40px;
-        border-radius: 10px;
-        background-color: #f9f8f8;
-        &:nth-child(2) {
-          margin: 10px 0;
-        }
+    flex-wrap: wrap;
+
+    .item {
+      box-sizing: border-box;
+      width: 167px;
+      height: 40px;
+      border-radius: 10px;
+      background-color: #f9f8f8;
+      margin-bottom: 15px;
+      &:nth-child(2n + 1) {
+        margin-right: 11px;
       }
-    }
-    .btnLeft {
-      margin-right: 10px;
     }
   }
 }
