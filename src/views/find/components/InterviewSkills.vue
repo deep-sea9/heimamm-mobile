@@ -29,7 +29,7 @@
         </div>
       </div>
       <div class="right">
-        <img :src="'http://192.168.11.131:1337' + item.cover" alt="" />
+        <img :src="'http://106.55.138.21:1337' + item.cover" alt="" />
       </div>
     </div>
   </div>
