@@ -221,7 +221,7 @@
           </div>
         </van-list>
         <div class="footer">
-          <div>
+          <div @click="$router.push('/position/' + list.id)">
             <span>在招职位 <span>60</span></span>
           </div>
           <div>

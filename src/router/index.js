@@ -111,6 +111,20 @@ const routes = [
   {
     path: '/map',
     component: () => import('@/views/map')
+  },
+  {
+    path: '/test',
+    component: () => import('@/views/test')
+  },
+  // 企业在招职位
+  {
+    path: '/position/:id',
+    component: () => import('@/views/company/commpoents/position')
+  },
+  // 职位详情
+  {
+    path: '/position/detail/:id',
+    component: () => import('@/views/company/commpoents/positionDetail')
   }
 ]
 

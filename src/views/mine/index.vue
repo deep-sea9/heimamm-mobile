@@ -105,8 +105,8 @@ export default {
   data () {
     return {
       info: '',
-      // http: 'http://106.55.138.21:1337'
-      http: 'http://192.168.11.131:1337'
+      http: 'http://106.55.138.21:1337'
+      // http: 'http://192.168.11.131:1337'
     }
   },
   computed: {

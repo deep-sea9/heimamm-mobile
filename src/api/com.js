@@ -20,14 +20,21 @@ export const companiesComments = params => {
   })
 }
 // 获取公司职位
-export const companiesPositions = id => {
+export const companiesPositions = params => {
   return request({
-    url: `/companies/${id}/positions`
+    url: `/companies/${params.id}/positions`,
+    params
   })
 }
 // 获取公司职位筛选
 export const companiesPositionFilters = id => {
   return request({
     url: `/companies/${id}/positionFilters`
+  })
+}
+// 职位详情
+export const positionsDetail = id => {
+  return request({
+    url: '/positions/' + id
   })
 }

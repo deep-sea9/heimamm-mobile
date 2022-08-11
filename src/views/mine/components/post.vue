@@ -72,8 +72,8 @@ export default {
       },
       fileList: [
         {
-          url: 'http://192.168.11.131:1337' + this.$store.state.userInfo.avatar
-          // url: 'http://106.55.138.21:1337' + this.$store.state.userInfo.avatar
+          // url: 'http://192.168.11.131:1337' + this.$store.state.userInfo.avatar
+          url: 'http://106.55.138.21:1337' + this.$store.state.userInfo.avatar
         }
       ],
       // 头像修改显示按钮(初始不显示)
